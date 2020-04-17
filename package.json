@@ -19,17 +19,19 @@
     "aws-amplify-vue": "^2.1.1",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
+    "graphql": "^15.0.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9",
+    "@ava/babel": "^1.0.0",
     "@nuxt/typescript-build": "^0.6.0",
     "@nuxtjs/tailwindcss": "^1.0.0",
+    "@types/graphql": "^14.5.0",
     "@vue/test-utils": "^1.0.0-beta.27",
     "ava": "^3.0.0",
-    "@ava/babel": "^1.0.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "browser-env": "^3.2.5",
+    "nodemon": "^1.18.9",
     "require-extension-hooks": "^0.3.3",
     "require-extension-hooks-babel": "^1.0.0",
     "require-extension-hooks-vue": "^2.0.0"
