@@ -1,0 +1,26 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-talentportal-dev-104002-authRole",
+            "UnauthRoleArn": "arn:aws:iam::382003548465:role/amplify-talentportal-dev-104002-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::382003548465:role/amplify-talentportal-dev-104002-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "amplify-talentportal-dev-104002-deployment",
+            "UnauthRoleName": "amplify-talentportal-dev-104002-unauthRole",
+            "StackName": "amplify-talentportal-dev-104002",
+            "StackId": "arn:aws:cloudformation:eu-west-2:382003548465:stack/amplify-talentportal-dev-104002/6b001e70-808f-11ea-989c-0617023ccf6e",
+            "AmplifyAppId": "de6ewxw1cx7el"
+        },
+        "categories": {
+            "auth": {
+                "talentportal41919e49": {}
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "de6ewxw1cx7el",
+                    "type": "cicd"
+                }
+            }
+        }
+    }
+}
