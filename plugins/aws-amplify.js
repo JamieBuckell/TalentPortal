@@ -4,7 +4,7 @@ import {
   AmplifyPlugin,
   components
 } from 'aws-amplify-vue'
-import awsconfig from '../aws-exports'
+import awsconfig from '~/aws-exports'
 
 Amplify.configure(awsconfig)
 
