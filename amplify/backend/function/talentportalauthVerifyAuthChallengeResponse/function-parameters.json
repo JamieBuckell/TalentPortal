@@ -1,0 +1,16 @@
+{
+    "trigger": true,
+    "modules": [
+        "captcha-verify"
+    ],
+    "parentResource": "talentportalauth",
+    "functionName": "talentportalauthVerifyAuthChallengeResponse",
+    "resourceName": "talentportalauthVerifyAuthChallengeResponse",
+    "parentStack": "auth",
+    "triggerEnvs": [],
+    "triggerDir": "/Users/jamie.buckell/.nvm/versions/node/v11.4.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/VerifyAuthChallengeResponse",
+    "triggerTemplate": "VerifyAuthChallengeResponse.json.ejs",
+    "roleName": "talentportalauthVerifyAuthChallengeResponse",
+    "skipEdit": true,
+    "RECAPTCHASECRET": "6LcRIOsUAAAAAKDd62nEmZOBIZ08SP9xPdzyn9LV"
+}

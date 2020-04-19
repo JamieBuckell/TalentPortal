@@ -1,10 +1,135 @@
 {
     "auth": {
-        "talentportal41919e49": {
+        "userPoolGroups": {
+            "service": "Cognito-UserPool-Groups",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "auth",
+                    "resourceName": "talentportalauth",
+                    "attributes": [
+                        "UserPoolId",
+                        "AppClientIDWeb",
+                        "AppClientID"
+                    ]
+                }
+            ]
+        },
+        "talentportalauth": {
             "service": "Cognito",
             "providerPlugin": "awscloudformation",
-            "dependsOn": [],
-            "customAuth": false
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "talentportalauthDefineAuthChallenge",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "talentportalauthCreateAuthChallenge",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "talentportalauthVerifyAuthChallengeResponse",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "talentportalauthCustomMessage",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "talentportalauthPostConfirmation",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                }
+            ],
+            "customAuth": true
+        }
+    },
+    "function": {
+        "talentportalauthDefineAuthChallenge": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "talentportalauthCreateAuthChallenge": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "talentportalauthVerifyAuthChallengeResponse": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "talentportalauthCustomMessage": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "talentportalauthPostConfirmation": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "AdminQueries6dd8430a": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "auth",
+                    "resourceName": "talentportalauth",
+                    "attributes": [
+                        "UserPoolId"
+                    ]
+                }
+            ]
+        }
+    },
+    "api": {
+        "AdminQueries": {
+            "service": "API Gateway",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "auth",
+                    "resourceName": "talentportalauth",
+                    "attributes": [
+                        "UserPoolId"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "AdminQueries6dd8430a",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                }
+            ]
         }
     },
     "hosting": {

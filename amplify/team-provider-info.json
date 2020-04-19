@@ -1,23 +1,38 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-talentportal-dev-104002-authRole",
-            "UnauthRoleArn": "arn:aws:iam::382003548465:role/amplify-talentportal-dev-104002-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::382003548465:role/amplify-talentportal-dev-104002-authRole",
+            "AuthRoleName": "amplify-talentportal-dev-15953-authRole",
+            "UnauthRoleArn": "arn:aws:iam::382003548465:role/amplify-talentportal-dev-15953-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::382003548465:role/amplify-talentportal-dev-15953-authRole",
             "Region": "eu-west-2",
-            "DeploymentBucketName": "amplify-talentportal-dev-104002-deployment",
-            "UnauthRoleName": "amplify-talentportal-dev-104002-unauthRole",
-            "StackName": "amplify-talentportal-dev-104002",
-            "StackId": "arn:aws:cloudformation:eu-west-2:382003548465:stack/amplify-talentportal-dev-104002/6b001e70-808f-11ea-989c-0617023ccf6e",
-            "AmplifyAppId": "de6ewxw1cx7el"
+            "DeploymentBucketName": "amplify-talentportal-dev-15953-deployment",
+            "UnauthRoleName": "amplify-talentportal-dev-15953-unauthRole",
+            "StackName": "amplify-talentportal-dev-15953",
+            "StackId": "arn:aws:cloudformation:eu-west-2:382003548465:stack/amplify-talentportal-dev-15953/1f9116b0-81d9-11ea-b087-02ea235e602c",
+            "AmplifyAppId": "dgc0i7fri0cr8"
         },
         "categories": {
+            "function": {
+                "talentportalauthDefineAuthChallenge": {},
+                "talentportalauthCreateAuthChallenge": {},
+                "talentportalauthVerifyAuthChallengeResponse": {
+                    "RECAPTCHASECRET": "6LcRIOsUAAAAAKDd62nEmZOBIZ08SP9xPdzyn9LV"
+                },
+                "talentportalauthCustomMessage": {
+                    "REDIRECTURL": "https://talent.byleighton.co.uk/login",
+                    "EMAILSUBJECT": "Leighton Talent Portal Confirmation",
+                    "EMAILMESSAGE": "Click the link"
+                },
+                "talentportalauthPostConfirmation": {
+                    "GROUP": "customers"
+                }
+            },
             "auth": {
-                "talentportal41919e49": {}
+                "talentportalauth": {}
             },
             "hosting": {
                 "amplifyhosting": {
-                    "appId": "de6ewxw1cx7el",
+                    "appId": "dgc0i7fri0cr8",
                     "type": "cicd"
                 }
             }

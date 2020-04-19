@@ -1,0 +1,15 @@
+{
+    "trigger": true,
+    "modules": [
+        "captcha-create-challenge"
+    ],
+    "parentResource": "talentportalauth",
+    "functionName": "talentportalauthCreateAuthChallenge",
+    "resourceName": "talentportalauthCreateAuthChallenge",
+    "parentStack": "auth",
+    "triggerEnvs": [],
+    "triggerDir": "/Users/jamie.buckell/.nvm/versions/node/v11.4.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/CreateAuthChallenge",
+    "triggerTemplate": "CreateAuthChallenge.json.ejs",
+    "roleName": "talentportalauthCreateAuthChallenge",
+    "skipEdit": true
+}
