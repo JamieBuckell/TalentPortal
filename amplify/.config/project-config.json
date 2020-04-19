@@ -6,7 +6,7 @@
         "framework": "vue",
         "config": {
             "SourceDir": ".",
-            "DistributionDir": "dist",
+            "DistributionDir": ".",
             "BuildCommand": "npm run build",
             "StartCommand": "npm run start"
         }
