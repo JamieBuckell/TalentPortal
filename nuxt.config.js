@@ -31,6 +31,12 @@ module.exports = {
     { src: "~/plugins/aws-amplify.js", mode: "client" }
   ],
   /*
+  ** Server Middleware
+  */
+  serverMiddleware: [
+    '~/servermiddleware/redirects.js'
+  ],
+  /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
