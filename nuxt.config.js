@@ -1,4 +1,3 @@
-
 module.exports = {
   mode: 'spa',
   /*
@@ -12,13 +11,26 @@ module.exports = {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+      }
     ]
   },
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+ loading: {
+    color: '#2d3748',
+    height: '3px',
+    duration: 4000
+  },
+  loadingIndicator: {
+    name: 'circle',
+    color: '#2d3748'
+  },
   /*
   ** Global CSS
   */
@@ -28,7 +40,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: "~/plugins/aws-amplify.js", mode: "client" }
+    { src: '~/plugins/amplify.js', mode: 'client' }, 
+    { src: '~/plugins/auth' }
   ],
   /*
   ** Server Middleware

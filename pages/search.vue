@@ -457,7 +457,8 @@ import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
 
 export default Vue.extend({
-  name: "landing-page",
+  name: "search-results",
+  middleware: 'auth',
   components: {
     NavbarComponent,
     FooterComponent

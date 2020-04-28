@@ -10,7 +10,7 @@
       >
         <a
           class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white"
-          href="/login"
+          href="/"
           >Leighton Talent Portal</a
         ><button
           class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -23,17 +23,19 @@
       <div
         class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none"
         v-bind:class="{'hidden': !showMenu, 'block': showMenu}"
+         v-if="$auth.isAuthenticated"
       >
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
           <li class="flex items-center">
-            <a
+            <button
               class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
               type="button"
-              href="https://www.leighton.com/get-in-touch/"
+              href="#"
+              @click="$store.dispatch('auth/logout')"
               style="transition: all 0.15s ease 0s;"
             >
-              <i class="fas fa-envelope"></i> Contact Us
-            </a>
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
           </li>
         </ul>
       </div>

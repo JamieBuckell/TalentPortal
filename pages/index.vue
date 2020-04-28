@@ -92,6 +92,7 @@
                     Leighton is an established company with 28 years in the market. 
                     We've worked with small, medium, and large businesses operating across a number of different industries.
                   </p>
+                      
                 </div>
               </div>
             </div>
@@ -489,11 +490,13 @@ import FooterComponent from "~/components/Footer.vue";
 
 export default Vue.extend({
   name: "landing-page",
+  middleware: 'auth',
   components: {
     NavbarComponent,
     FooterComponent
   }
 })
+
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 </script>

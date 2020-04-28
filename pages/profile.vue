@@ -222,6 +222,8 @@ import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
 
 export default Vue.extend({
+  name: "profile-view",
+  middleware: 'auth',
   components: {
     NavbarComponent,
     FooterComponent
