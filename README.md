@@ -8,6 +8,9 @@
 # install dependencies
 $ npm install
 
+# get amplify ready and generate aws-exports file
+$ amplify init
+
 # serve with hot reload at localhost:3000
 $ npm run dev
 
