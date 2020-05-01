@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <main>
@@ -17,7 +16,7 @@
               <div class="w-full lg:w-4/12 px-4">
                 <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
                   <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
-                    <div>
+                    <div v-if="!$auth.isAuthenticated">
                       <form @submit.prevent="login">
                       <div class="rounded-t mb-0 px-6 py-6 flex-auto px-4 lg:px-10 pt-6">
                         <div class="text-gray-700 text-center mb-3 font-bold">

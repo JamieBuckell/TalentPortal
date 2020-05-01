@@ -144,12 +144,9 @@
           <h1 class="text-white text-center font-semibold text-4xl pb-8">
             Search for talent.
           </h1>
-          
-          <input class="w-full h-16 px-3 rounded mb-8 focus:outline-none focus:shadow-outline text-xl px-8 shadow-lg" type="search" placeholder="Search...">
 
-          <a 
-            class="bg-purple-800 float-right text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-            href="/search">Search</a>
+          <searchform-component></searchform-component>
+
         </div>
       </section>
 
@@ -266,122 +263,7 @@
             ></polygon>
           </svg>
         </div>
-        <div class="container mx-auto px-4">
-          <div class="flex flex-wrap justify-center text-center mb-24">
-            <div class="w-full lg:w-6/12 px-4">
-              <h2 class="text-4xl font-semibold">Popular Profiles</h2>
-              <p class="text-lg leading-relaxed m-4 text-gray-600">
-                Below are our most searched for and viewed profiles.
-              </p>
-            </div>
-          </div>
-          <div class="flex flex-wrap">
-            <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-              <div class="px-6">
-                <img
-                  alt="..."
-                  src="../assets/img/Silhouette.png"
-                  class="shadow-lg rounded-full max-w-full mx-auto"
-                  style="max-width: 120px;"
-                />
-                <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Senior Software Engineer</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    6 Years Commercial Experience
-                  </p>
-                  <div class="mt-6">
-                    <a
-                      class="bg-purple-800 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                      type="button"
-                      href="/profile"
-                      style="transition: all 0.15s ease 0s;"
-                    >
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-              <div class="px-6">
-                <img
-                  alt="..."
-                  src="../assets/img/Silhouette.png"
-                  class="shadow-lg rounded-full max-w-full mx-auto"
-                  style="max-width: 120px;"
-                />
-                <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Scrum Master</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    10+ Years Commercial Experience
-                  </p>
-                  <div class="mt-6">
-                    <a
-                      class="bg-purple-800 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                      type="button"
-                      href="/profile"
-                      style="transition: all 0.15s ease 0s;"
-                    >
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-              <div class="px-6">
-                <img
-                  alt="..."
-                  src="../assets/img/Silhouette.png"
-                  class="shadow-lg rounded-full max-w-full mx-auto"
-                  style="max-width: 120px;"
-                />
-                <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">UX Designer</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    5 Years Commercial Experience
-                  </p>
-                  <div class="mt-6">
-                    <a
-                      class="bg-purple-800 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                      type="button"
-                      href="/profile"
-                      style="transition: all 0.15s ease 0s;"
-                    >
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-              <div class="px-6">
-                <img
-                  alt="..."
-                  src="../assets/img/Silhouette.png"
-                  class="shadow-lg rounded-full max-w-full mx-auto"
-                  style="max-width: 120px;"
-                />
-                <div class="pt-6 text-center">
-                  <h5 class="text-xl font-bold">Senior Project Manager</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    8 Years Commercial Experience
-                  </p>
-                  <div class="mt-6">
-                    <a
-                      class="bg-purple-800 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                      type="button"
-                      href="/profile"
-                      style="transition: all 0.15s ease 0s;"
-                    >
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <popularprofiles-component></popularprofiles-component>
       </section>
       <section class="pb-20 relative block bg-gray-900">
         <div
@@ -487,16 +369,26 @@
 import Vue from 'vue'
 import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
+import SearchformComponent from "~/components/SearchForm.vue";
+import PopularprofilesComponent from "~/components/PopularProfiles.vue";
+
+import axios from "axios";
 
 export default Vue.extend({
   name: "landing-page",
   middleware: 'auth',
   components: {
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    SearchformComponent,
+    PopularprofilesComponent
+  },
+  data () {
+    return {
+      
+    }
   }
 })
-
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 </script>

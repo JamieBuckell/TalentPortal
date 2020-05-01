@@ -41,7 +41,8 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/amplify.js', mode: 'client' }, 
-    { src: '~/plugins/auth' }
+    { src: '~/plugins/auth' }, 
+    { src: '~/plugins/vue-table', ssr: false }
   ],
   /*
   ** Server Middleware
@@ -61,7 +62,15 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
   ],
+
+  /*
+  ** Nuxt Axios settings
+  */
+  axios: {
+    // proxyHeaders: false
+  },
   /*
   ** Build configuration
   */
@@ -70,6 +79,7 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
+    },
+    vendor: ['vuetable-2']
   }
 }
