@@ -68,7 +68,7 @@ export default {
     }
   },
   methods: {
-    onActionClicked(action: string, data: any) {
+    onActionClicked(action, data) {
       switch (action) {
         case 'view-item':
           this.$router.push('/profile/'+data.id+'/')
