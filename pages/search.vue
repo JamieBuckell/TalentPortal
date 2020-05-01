@@ -73,8 +73,6 @@
                 :per-page="perPage"
                 :data-manager="dataManager"
                 :css="css.table"
-                pagination-path="pagination"
-                @vuetable:pagination-data="onPaginationData"
               >
                 <div slot="actions" slot-scope="props">
                   <button 
@@ -100,10 +98,7 @@
                 </div>
               </vuetable>
               <div style="padding-top:10px">
-                <vuetable-pagination ref="pagination"
-                  :css="css.pagination"
-                  @vuetable-pagination:change-page="onChangePage"
-                ></vuetable-pagination>
+                
               </div>
             </div>
           </div>
@@ -145,7 +140,6 @@ import SearchformComponent from "~/components/SearchForm.vue";
 import PopularprofilesComponent from "~/components/PopularProfiles.vue";
 
 import { Vuetable } from 'vuetable-2';
-import VuetablePagination from "vuetable-2/src/components/VuetablePagination";
 import FieldsDef from "~/store/searchTableFields.js";
 
 import axios from "axios";
@@ -158,8 +152,7 @@ export default Vue.extend({
     FooterComponent,
     SearchformComponent,
     PopularprofilesComponent,
-    Vuetable,
-    VuetablePagination
+    Vuetable
   },
   
   data() {
@@ -181,22 +174,6 @@ export default Vue.extend({
           handleIcon: 'fa fa-bars text-secondary',
           renderIcon(classes, options) {
             return `<i class="${classes.join(' ')}"></span>`
-          }
-        },
-        pagination: {
-          wrapperClass: 'pagination float-right',
-          activeClass: 'active',
-          disabledClass: 'disabled',
-          pageClass: 'page-item',
-          linkClass: 'page-link',
-          paginationClass: 'pagination',
-          paginationInfoClass: 'float-left',
-          dropdownClass: 'form-control',
-          icons: {
-            first: 'fa fa-chevron-left',
-            prev: 'fa fa-chevron-left',
-            next: 'fa fa-chevron-right',
-            last: 'fa fa-chevron-right',
           }
         },
       },
@@ -230,13 +207,7 @@ export default Vue.extend({
   },
 
   methods: {
-    onPaginationData(paginationData) {
-      this.$refs.pagination.setPaginationData(paginationData);
-    },
-    onChangePage(page) {
-      this.$refs.vuetable.changePage(page);
-    },
-    dataManager(sortOrder, pagination) {
+    dataManager(sortOrder) {
       if (this.data.length < 1) return;
 
       let local = this.data;
@@ -244,24 +215,10 @@ export default Vue.extend({
       // sortOrder can be empty, so we have to check for that as well
       if (sortOrder.length > 0) {
         console.log("orderBy:", sortOrder[0].sortField, sortOrder[0].direction);
-        local = _.orderBy(
-          local,
-          sortOrder[0].sortField,
-          sortOrder[0].direction
-        );
       }
 
-      pagination = this.$refs.vuetable.makePagination(
-        local.length,
-        this.perPage
-      );
-      console.log('pagination:', pagination)
-      let from = pagination.from - 1;
-      let to = from + this.perPage;
-
       return {
-        pagination: pagination,
-        data: _.slice(local, from, to)
+        data: local
       };
     },
     onActionClicked(action, data) {
