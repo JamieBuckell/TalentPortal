@@ -2,12 +2,14 @@ import { Auth } from 'aws-amplify'
 
 export const state = () => ({
   isAuthenticated: false,
+  forcePasswordChange: false,
   user: null
 })
 
 export const mutations = {
   set(state, user) {
     state.isAuthenticated = !!user
+    state.forcePasswordChange = user && user.challengeName == 'NEW_PASSWORD_REQUIRED'
     state.user = user
   }
 }
@@ -35,8 +37,13 @@ export const actions = {
     return await Auth.confirmSignUp(email, code)
   },
 
+  async completeNewPassword(_, {user, newPassword }) {
+    return await Auth.completeNewPassword(user, newPassword)
+  },
+
   async login({ commit }, { email, password }) {
     const user = await Auth.signIn(email, password)
+
     commit('set', user)
     return user
   },

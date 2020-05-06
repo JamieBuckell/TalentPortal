@@ -74,6 +74,64 @@
                       </div>
                       </form>
                     </div>
+                    <div v-if="$auth.forcePasswordChange">
+                      <form @submit.prevent="completeNewPassword">
+                      <div class="rounded-t mb-0 px-6 py-6 flex-auto px-4 lg:px-10 pt-6">
+                        <div class="text-gray-700 text-center mb-3 font-bold">
+                          <h1>Password Change</h1>
+                        </div>
+                        <div class="text-purple-800 text-center mb-3 text-s font-bold">
+                          <p>Before you can log in, you must first change your password.</p>
+                        </div>
+                          <div class="relative w-full mb-3">
+                            <label
+                              class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                              for="grid-password">
+                              New Password
+                            </label>
+                            <input
+                              v-model="form.newPassword"
+                              type="password"
+                              placeholder="Password"
+                              class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+                              style="transition: all 0.15s ease 0s;"
+                            />
+                          </div>
+                          <div class="relative w-full mb-3">
+                            <label
+                              class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                              for="grid-password">
+                              Confirm Password
+                            </label>
+                            <input
+                              v-model="form.newPasswordConfirm"
+                              type="password"
+                              placeholder="Confirm Password"
+                              class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+                              style="transition: all 0.15s ease 0s;"
+                            />
+                          </div>
+                          <p class="text-red-500 text-s pt-2 login-error" v-if="hasError">{{ errorMessage }}</p>
+                          <div class="text-center mt-6">
+                            <button
+                              class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                              type="submit"
+                              style="transition: all 0.15s ease 0s;"
+                            >
+                              Change Password
+                            </button>
+                            <button
+                              class="bg-gray-600 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                              type="button"
+                              @click="$store.dispatch('auth/logout')"
+                              style="transition: all 0.15s ease 0s;"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                      </div>
+                      </form>
+                    </div>
                     <!-- Authenticated -->
                   </div>
                 </div>
@@ -85,27 +143,59 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
+  name: "talent-login",
+  components: {},
   data: () => ({
     hasError: false,
+    authUser: null,
     errorMessage: 'Incorrect username or password.',
     form: {
       email: '',
-      password: ''
+      password: '',
+      newPassword: '',
+      newPasswordConfirm: ''
     }
   }),
-
+  mounted() {
+    if (this.$auth.user) {
+      this.$router.push('/')
+    }
+  },
   methods: {
     async login() {
       try {
-        await this.$store.dispatch('auth/login', this.form)
-        this.$router.push('/')
+        this.authUser = await this.$store.dispatch('auth/login', this.form)
+        if (this.authUser.challengeName != 'NEW_PASSWORD_REQUIRED') {
+          this.$router.push('/')
+        } else {
+          this.errorMessage = 'An unexpected error occurred';
+        }
       } catch (error) {
         this.hasError = true;
-        //this.errorMessage = error.message;
+      }
+    },
+    async completeNewPassword() {
+      try {        
+        this.authUser = await this.$store.dispatch(
+          {
+              type: 'auth/completeNewPassword',
+              user: this.authUser,
+              newPassword: this.form.newPassword
+          }
+        )
+
+        if (!this.authUser.challengeName) {
+          this.$router.push('/')
+        }
+
+      } catch (error) {
+        this.hasError = true;
       }
     }
   }
-}
+})
 </script>

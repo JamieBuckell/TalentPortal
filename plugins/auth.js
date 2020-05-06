@@ -9,6 +9,10 @@ class AuthService {
     return this.$store.state.auth.isAuthenticated
   }
 
+  get forcePasswordChange() {
+    return this.$store.state.auth.forcePasswordChange
+  }
+
   get user() {
     return this.$store.state.auth.user
   }
