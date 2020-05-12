@@ -50,22 +50,20 @@ export default {
     }
   },
   mounted() {
-    if (typeof this.$route.query.term != 'undefined') {
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
-      }
-      axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/popular", 
-        { },
-        { headers: headers }
-      )
-      .then(response => {
-        this.profiles = response.data.result;
-      })
-      .catch(error => {
-        console.log(error)
-      });
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': (this.$auth.user && this.$auth.user.signInUserSession.idToken.jwtToken) ? this.$auth.user.signInUserSession.idToken.jwtToken : []
     }
+    axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/popular", 
+      { },
+      { headers: headers }
+    )
+    .then(response => {
+      this.profiles = response.data.result;
+    })
+    .catch(error => {
+      console.log(error)
+    });
   },
   methods: {
     onActionClicked(action, data) {

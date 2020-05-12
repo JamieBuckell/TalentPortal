@@ -4,7 +4,7 @@
     <main>
       <div
         class="relative pt-16 pb-32 flex content-center items-center justify-center"
-        style="min-height: 250px;"
+        style="min-height: 25vh;"
       >
         <div
           class="absolute top-0 w-full h-full bg-purple-900"
@@ -13,30 +13,12 @@
         <div
           class="absolute top-0 w-full h-full"
           style="background-size: 100%; background-repeat: no-repeat;"
-          :style="{
-            'background-image':
-              'url(' + require('~/assets/img/register_bg_2.png') + ')'
-          }"
+          :style="{'background-image': 'url(' + require('~/assets/img/register_bg_2.png') + ')'}"
         >
           <span
             id="blackOverlay"
             class="w-full h-full absolute opacity-25 bg-black"
           ></span>
-        </div>
-        <div class="container relative mx-auto">
-          <div class="items-center flex flex-wrap">
-            <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center">
-              <div class="pr-12">
-                <h1 class="text-white font-semibold text-5xl">
-                  Search Results.
-                </h1>
-              </div>
-            </div>
-          </div>
-
-          <div v-if="$auth.isAuthenticated" class="mt-4">
-            <searchform-component></searchform-component>
-          </div>
         </div>
         <div
           class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
@@ -52,59 +34,55 @@
             y="0"
           >
             <polygon
-              class="text-gray-800 fill-current"
+              class="text-gray-300 fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
         </div>
       </div>
 
-      <section class="relative py-20 pt-10 pb-24 bg-gray-800">
-        <div class="container mx-auto px-4 sm:px-8">
-          <div class="py-8">
-            <div>
-              <h2 class="text-2xl text-white font-semibold leading-tight">
-                Roles
-              </h2>
-            </div>
-            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-          
-              <vuetable ref="vuetable"
-                :api-mode="false"
-                :fields="fields"
-                :per-page="perPage"
-                :data-manager="dataManager"
-                :css="css.table"
-              >
-                <div slot="status" slot-scope="props" class="font-bold">
-                  <span v-if="props.rowData.status == 1" class="text-green-600">
-                    Available
-                  </span>
-                  <span v-else-if="props.rowData.status == 2" class="text-orange-600">
-                    Available Soon
-                  </span>
-                  <span v-else-if="props.rowData.status == 3" class="text-red-600">
-                    Unavailable
-                  </span>
-                </div>
-                <div slot="actions" slot-scope="props">
-                  <button 
-                    class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" 
-                    @click="onActionClicked('view-item', props)"
-                  >
-                    View
-                  </button>
-                </div>
-              </vuetable>
-              <div style="padding-top:10px">
-                
-              </div>
-            </div>
+      <section class="bg-gray-300">
+        <div class="container mx-auto px-4">
+          <div class="w-full pt-2">
+            <a href="/admin" class="font-semibold">Admin</a>
           </div>
         </div>
       </section>
 
-      <section class="relative py-20 pt-20 pb-48">
+      <section class="pb-20 bg-gray-300 min-h-screen">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-wrap">
+
+
+            <div class="lg:pt-6 pt-6 w-full xl:w-2/12 lg:w-3/12 md:w-4/12 pr-4 text-center">
+              <a href="/admin/users/" class="relative flex flex-col min-w-0 break-words bg-white md:w-full mb-8 shadow-lg rounded-lg">
+                <div class="px-4 py-5 flex-auto">
+                  <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <h6 class="text-auto font-semibold">Users</h6>
+                </div>
+              </a>
+            </div>
+
+
+            <div class="lg:pt-6 pt-6 w-full xl:w-2/12 lg:w-3/12 md:w-4/12 px-4 text-center">
+              <a href="/admin/authorisations/" class="relative flex flex-col min-w-0 break-words bg-white md:w-full mb-8 shadow-lg rounded-lg">
+                <div class="px-4 py-5 flex-auto">
+                  <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-purple-700">
+                    <i class="fas fa-tasks"></i>
+                  </div>
+                  <h6 class="text-auto font-semibold">Authorisations</h6>
+                </div>
+              </a>
+            </div>
+
+
+          </div>
+        </div>
+      </section>
+
+      <section class="relative block bg-gray-900">
         <div
           class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
           style="height: 80px; transform: translateZ(0px);"
@@ -119,12 +97,20 @@
             y="0"
           >
             <polygon
-              class="text-white fill-current"
+              class="text-gray-900 fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
         </div>
-        <popularprofiles-component></popularprofiles-component>
+        <div class="container mx-auto px-4">
+          <div class="flex flex-wrap text-center justify-center">
+            <div class="w-full lg:w-6/12 px-4">
+              <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
+                &nbsp;
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <footer-component></footer-component>
@@ -132,7 +118,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue'
 import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
 import SearchformComponent from "~/components/SearchForm.vue";
@@ -144,8 +130,8 @@ import FieldsDef from "~/store/searchTableFields.js";
 import axios from "axios";
 
 export default Vue.extend({
-  name: "search-results",
-  middleware: "auth",
+  name: "landing-page",
+  middleware: 'auth',
   components: {
     NavbarComponent,
     FooterComponent,
@@ -153,9 +139,9 @@ export default Vue.extend({
     PopularprofilesComponent,
     Vuetable
   },
-  
-  data() {
+  data () {
     return {
+      isAdmin: false,
       fields: FieldsDef,
       css: {
         table: {
@@ -178,33 +164,24 @@ export default Vue.extend({
       },
       perPage: 10,
       data: []
-    };
+    }
   },
   watch: {
     data(newVal, oldVal) {
       this.$refs.vuetable.refresh();
     }
   },
-
   mounted() {
-    if (typeof this.$route.query.term != 'undefined') {
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
-      }
-      axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/search", 
-        { term: this.$route.query.term },
-        { headers: headers }
-      )
-      .then(response => {
-        this.data = response.data.result;
-      })
-      .catch(error => {
-        console.log(error)
-      });
+    const userGroups = (this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"]) ? this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"] : [];
+    if (userGroups.indexOf("SuperAdmin") != -1) {
+      this.isAdmin = true;
+    } else if (userGroups.indexOf("TalentAdmin") != -1) {
+      this.isAdmin = true;
+    }
+    if (!this.isAdmin) {
+      this.$router.push('/')
     }
   },
-
   methods: {
     dataManager(sortOrder) {
       if (this.data.length < 1) return;
@@ -228,37 +205,7 @@ export default Vue.extend({
       }
     }
   }
-});
+})
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 </script>
-<style type="text/css">
-  .search-table-wrapper {
-    
-  }
-  .search-table-wrapper thead tr th {
-    letter-spacing: .05em;
-    text-transform: uppercase;
-    font-size: .75rem;
-    color: #718096;
-    text-align: left;
-    padding:.75rem 1.25rem;
-    font-weight: 600;
-    border-bottom-width: 2px;
-    border-color: #edf2f7;
-    background-color: #f7fafc;
-    box-sizing: border-box;
-    margin: 0;
-  
-  }
-  .search-table-wrapper tbody tr td {
-    font-size: .875rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-    border-bottom-width: 1px;
-    border-color: #edf2f7;
-    background-color: #fff;
-  }
-</style>

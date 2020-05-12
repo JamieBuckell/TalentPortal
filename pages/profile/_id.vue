@@ -94,12 +94,14 @@
                 </div>
               </div>
               <div class="text-center mt-12">
-                <h3
-                  class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                <span
+                   v-if="job_title"
+                   class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                 >
                   {{ job_title }}
-                </h3>
+                </span>
                 <div
+                  v-if="location"
                   class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
                   <i class="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>
                   {{ location }}
@@ -209,31 +211,31 @@ export default Vue.extend({
       }
   },
   mounted() {
-    if (typeof this.$route.params.id == 'undefined') {
-        this.$router.push('/search/');
-    }
-
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
     }
+    var data = { "viewType" : 'profile' };
+    if (typeof this.$route.params.id != 'undefined') {
+      data['id'] = this.$route.params.id
+    }
     axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/retrieve", 
-      {
-        "id": this.$route.params.id
-      },
+      data,
       {
         headers: headers
       }
     )
     .then(response => { 
-      this.data = response.data.result;
-
-      this.talent_id = this.data.id;
-      this.download_link = '/download/'+this.data.id+'/';
-      this.job_title = this.data.job_title;
-      this.location = this.data.location;
-      this.summary = this.data.summary;
-      this.detail = this.data.detail;
+      if (typeof response.data.result == 'undefined' || response.data.result.length == 0) {
+        this.$router.push('/search');
+      } else {
+        this.talent_id = response.data.result.id;
+        this.download_link = '/download/'+response.data.result.id+'/';
+        this.job_title = response.data.result.job_title;
+        this.location = response.data.result.location;
+        this.summary = response.data.result.summary;
+        this.detail = response.data.result.detail;
+      }
     })
     .catch(error => {
       console.log(error)

@@ -23,19 +23,45 @@
       <div
         class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none"
         v-bind:class="{'hidden': !showMenu, 'block': showMenu}"
-         v-if="$auth.isAuthenticated"
       >
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-          <li class="flex items-center">
+          
+          <li v-if="isAdmin" class="flex items-center">
+            <a
+              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              href="/admin"
+              style="transition: all 0.15s ease 0s;"
+            >
+              <i class="fas fa-user"></i> Admin
+            </a>
+          </li>
+          <li v-if="$auth.isAuthenticated" class="flex items-center">
+            <a
+              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              href="/manage"
+              style="transition: all 0.15s ease 0s;"
+            >
+              <i class="fas fa-user"></i> My Profile
+            </a>
+          </li>
+          <li v-if="$auth.isAuthenticated" class="flex items-center">
             <button
               class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
               type="button"
-              href="#"
               @click="$store.dispatch('auth/logout')"
               style="transition: all 0.15s ease 0s;"
             >
               <i class="fas fa-sign-out-alt"></i> Logout
             </button>
+          </li>
+          <li v-if="!isLogin && !$auth.isAuthenticated" class="flex items-center">
+            <a
+              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              href="/login"
+              style="transition: all 0.15s ease 0s;"
+            >
+              <i class="fas fa-user-lock"></i> Sign In / Register
+            </a>
           </li>
         </ul>
       </div>
@@ -46,7 +72,17 @@
 export default {
   data() {
     return {
-      showMenu: false
+      showMenu: false,
+      isAdmin: false,
+      isLogin: this.$route.path === '/login'
+    }
+  },
+  mounted() {
+    const userGroups = (this.$auth.isAuthenticated && this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"]) ? this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"] : [];
+    if (userGroups.indexOf("SuperAdmin") != -1) {
+      this.isAdmin = true;
+    } else if (userGroups.indexOf("TalentAdmin") != -1) {
+      this.isAdmin = true;
     }
   },
   methods: {
