@@ -25,10 +25,11 @@ export const actions = {
     }
   },
 
-  async register(_, { email, password }) {
+  async register(_, { email, password, firstName, lastName }) {
     const user = await Auth.signUp({
       username: email,
-      password
+      password,
+      attributes: {"custom:full_name" : firstName + ' ' + lastName }
     })
     return user
   },

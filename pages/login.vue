@@ -434,9 +434,11 @@ export default Vue.extend({
     async confirm() {
       try {
         await this.$store.dispatch('auth/confirmRegistration', this.confirmForm)
+
         let authUser = await this.$store.dispatch('auth/login', this.registerForm)
 
-        await this.$store.dispatch('profile/create', {email: this.confirmForm.email, fullName: this.firstName+' '+this.lastName})
+        await this.$store.dispatch('profile/create', {email: this.confirmForm.email, fullName: this.registerForm.firstName+' '+this.registerForm.lastName})
+
         this.$router.push('/manage')
       } catch (error) {
         console.log({ error })
