@@ -41,9 +41,7 @@
       </section>
       <section class="relative py-16 bg-gray-800">
         <div class="container mx-auto px-4">
-          <div
-            class="relative flex flex-col min-w-0 break-words bg-gray-300 w-full mb-6 shadow-xl rounded-lg -mt-64"
-          >
+          <div class="relative flex flex-col min-w-0 break-words bg-gray-300 w-full mb-6 shadow-xl rounded-lg -mt-64">
             <div class="px-6">
               <div class="flex flex-wrap justify-center">
                 <div
@@ -111,11 +109,11 @@
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4">  
                     <div v-if="summary">
-                      <a name="overview"></a>
+                      <a name="summary"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
-                        Overview
+                        Summary Profile
                       </h4>
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span v-html="summary"></span>
@@ -123,11 +121,11 @@
                     </div>
   
                     <div v-if="detail">
-                      <a name="skills"></a>
+                      <a name="detail"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
-                        Main Skills / Area of Expertise
+                        Main Achievements and Expertise
                       </h4>
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span v-html="detail"></span>
@@ -151,10 +149,22 @@
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
-                        Relevant Qualifications
+                        Relevant Qualifications &amp; Training
                       </h4>
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         {{ qualifications }}
+                      </p>
+                    </div>
+  
+                    <div v-if="attributes">
+                      <a name="attributes"></a>
+                      <h4
+                        class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                      >
+                        Personal Attributes/Competences
+                      </h4>
+                      <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
+                        {{ attributes }}
                       </p>
                     </div>
   
@@ -207,6 +217,7 @@ export default Vue.extend({
         detail: '',
         experience: '',
         qualifications: '',
+        attributes: '',
         websites: ''
       }
   },
@@ -235,6 +246,10 @@ export default Vue.extend({
         this.location = response.data.result.location;
         this.summary = response.data.result.summary;
         this.detail = response.data.result.detail;
+        this.experience = response.data.result.experience;
+        this.qualifications = response.data.result.qualifications;
+        this.attributes = response.data.result.attributes;
+        this.websites = response.data.result.websites;
       }
     })
     .catch(error => {

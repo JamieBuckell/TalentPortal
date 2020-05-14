@@ -176,11 +176,11 @@
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4">  
                     <div class="edit-field">
-                      <a name="overview"></a>
+                      <a name="summary"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
-                        Overview
+                        Summary Profile
                       </h4>
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('summary')" v-on:click.stop.prevent="removeFocus" @click="focusField('summary')">
@@ -202,16 +202,16 @@
                     </div>
   
                     <div>
-                      <a name="skills"></a>
+                      <a name="detail"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
-                        Main Skills / Area of Expertise
+                        Main Achievements and Expertise
                       </h4>
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('detail')" v-on:click.stop.prevent="removeFocus" @click="focusField('detail')">
                           <span v-html="detail"></span>
-                          <span v-if="!detail" class="text-gray-500">The full details of your skills and expertise</span>
+                          <span v-if="!detail" class="text-gray-500">The full details of your achievements, skills and expertise</span>
                         </span>
                         <textarea
                           ref="detail"
@@ -258,12 +258,12 @@
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
-                        Relevant Qualifications
+                        Relevant Qualifications &amp; Training
                       </h4>
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('qualifications')" v-on:click.stop.prevent="removeFocus" @click="focusField('qualifications')">
                           <span v-html="qualifications"></span>
-                          <span v-if="!qualifications" class="text-gray-500">Any qualifications you have</span>
+                          <span v-if="!qualifications" class="text-gray-500">Any qualifications you have or training you've attended.</span>
                         </span>
                         <textarea
                           ref="qualifications"
@@ -274,6 +274,32 @@
                           placeholder="Any qualifications you have"
                           class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
                           @focus="focusField('qualifications')" 
+                          @blur="blurField"
+                        ></textarea>
+                      </p>
+                    </div>
+  
+                    <div>
+                      <a name="attributes"></a>
+                      <h4
+                        class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                      >
+                        Personal Attributes/Competences
+                      </h4>
+                      <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
+                        <span class="field-value" v-show="!showField('attributes')" v-on:click.stop.prevent="removeFocus" @click="focusField('attributes')">
+                          <span v-html="attributes"></span>
+                          <span v-if="!attributes" class="text-gray-500">Any examples of team work, building relationships etc</span>
+                        </span>
+                        <textarea
+                          ref="attributes"
+                          v-model="attributes" 
+                          v-show="showField('attributes')"
+                          type="text" 
+                          rows="5"
+                          placeholder="Any examples of team work, building relationships etc"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
+                          @focus="focusField('attributes')" 
                           @blur="blurField"
                         ></textarea>
                       </p>
@@ -347,6 +373,7 @@ export default Vue.extend({
         detail: '',
         experience: '',
         qualifications: '',
+        attributes: '',
         websites: '',
         
         uploadedFiles: [],
@@ -474,6 +501,10 @@ export default Vue.extend({
         this.location = response.data.result.location;
         this.summary = response.data.result.summary;
         this.detail = response.data.result.detail;
+        this.experience = response.data.result.experience;
+        this.qualifications = response.data.result.qualifications;
+        this.attributes = response.data.result.attributes;
+        this.websites = response.data.result.websites;
       }
     })
     .catch(error => {
