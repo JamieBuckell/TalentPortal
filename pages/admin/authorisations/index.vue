@@ -80,7 +80,7 @@
                     </button>
                     <button 
                       class="bg-purple-700 text-white active:bg-purple-500 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" 
-                      @click="onActionClicked('reject-item', props)"
+                      @click="showModal(props)"
                     >
                       <i class="fa fa-times"></i>
                       
@@ -137,6 +137,21 @@
       </section>
     </main>
     <footer-component></footer-component>
+
+    <modal-component v-if="isModalVisible"
+      :title="modal.title"
+      :content="modal.content"
+      :action_text="modal.action_text"
+      :close_text="modal.close_text"
+      :show_modal="isModalVisible"
+      :modal_detail="modal.detail"
+      @close="closeModal()"
+      @action="actionModal"
+       >
+       <template v-slot:inputs>
+         <textarea ref="modal_detail" v-model="modal_detail"  rows="5" placeholder="Rejected Reason" class="my-3 px-3 py-3 placeholder-gray-600 w-full border-2 rounded text-sm shadow focus:outline-none focus:shadow-outline text-center"></textarea>
+       </template>
+    </modal-component>
   </div>
 </template>
 
@@ -148,6 +163,7 @@ import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
 import SearchformComponent from "~/components/SearchForm.vue";
 import PopularprofilesComponent from "~/components/PopularProfiles.vue";
+import ModalComponent from "~/components/Modal.vue";
 
 import { Vuetable } from 'vuetable-2';
 
@@ -161,13 +177,19 @@ export default Vue.extend({
     FooterComponent,
     SearchformComponent,
     PopularprofilesComponent,
-    Vuetable
+    Vuetable,
+    ModalComponent
   },
   data () {
     return {
-      modal_title: 'Please provide a rejection reason',
-      modal_content: '',
-      modal_footer: '',
+      modal: {
+        title: 'Reject Reason',
+        content: 'Please provide a detailed explanation on why this has been rejected:',
+        action_text: 'Reject',
+        close_text: 'Cancel',
+        detail: ''
+      },
+      currentRowData: [],
       isModalVisible: false,
       isAdmin: false,
       fields: [
@@ -223,7 +245,6 @@ export default Vue.extend({
     }
   },
   mounted() {
-    console.log(this.data);
     const userGroups = (this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"]) ? this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"] : [];
     if (userGroups.indexOf("SuperAdmin") != -1) {
       this.isAdmin = true;
@@ -250,11 +271,33 @@ export default Vue.extend({
     });
   },
   methods: {
-    showModal() {
+    showModal(data) {
+      this.currentRowData = data.rowData;
       this.isModalVisible = true;
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    actionModal(e) {
+      console.log(this.currentRowData);
+      /**/
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
+      }
+      axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/manage-changes", 
+        { id: this.currentRowData.id, type: 'reject', detail: e[0].data.directives[0].value },
+        { headers: headers }
+      )
+      .then(response => {
+        if (response.data.result) {
+          this.currentRowData.rejected = 1;
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      });
+      /**/
     },
     dataManager(sortOrder) {
       if (this.data.length < 1) return;
