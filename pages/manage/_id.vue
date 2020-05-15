@@ -121,22 +121,38 @@
               <div class="text-center mt-12">
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4"> 
-                    <span class="block text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2 edit-field">
-                      <span class="field-value" v-show="!showField('full_name')" v-on:click.stop.prevent="removeFocus" @click="focusField('full_name')">
-                        {{ full_name }}<span v-if="!full_name" class="text-gray-500">Full Name</span>
+                    <div class="relative">
+                      <span class="block text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2 edit-field">
+                        <span class="field-value" v-show="!showField('full_name')" v-on:click.stop.prevent="removeFocus" @click="focusField('full_name')">
+                          {{ full_name }}<span v-if="!full_name" class="text-gray-500">Full Name</span>
+                        </span>
+                        <input
+                          ref="full_name"
+                          v-model="full_name"
+                          v-show="showField('full_name')"
+                          type="text"
+                          placeholder="Full Name"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center"
+                          @focus="focusField('full_name')"
+                          @blur="blurField"
+                        >
                       </span>
-                      <input
-                        ref="full_name"
-                        v-model="full_name"
-                        v-show="showField('full_name')"
-                        type="text"
-                        placeholder="Full Name"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center"
-                        @focus="focusField('full_name')"
-                        @blur="blurField"
-                      >
-                    </span>
+                      <alerts-component 
+                        v-if="pending_changes.full_name"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.full_name"
+                        :detail='rejected_changes.full_name'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+                    </div>
 
+                    <div class="relative">
                     <span class="block text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2 edit-field">
                       <span class="field-value" v-show="!showField('job_title')" v-on:click.stop.prevent="removeFocus" @click="focusField('job_title')">
                         {{ job_title }}<span v-if="!job_title" class="text-gray-500">Job Title</span>
@@ -152,36 +168,83 @@
                         @blur="blurField"
                       >
                     </span>
+                      <alerts-component 
+                        v-if="pending_changes.job_title"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.job_title"
+                        :detail='rejected_changes.job_title'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+                    </div>
 
-                    <span class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase edit-field">
-                      <i class="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>
-                      <span class="field-value" v-show="!showField('location')" v-on:click.stop.prevent="removeFocus" @click="focusField('location')">
-                        {{ location }}<span v-if="!location" class="text-gray-500">Houghton-le-Spring, Sunderland</span>
+                    <div class="relative">
+                      <span class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase edit-field">
+                        <i class="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>
+                        <span class="field-value" v-show="!showField('location')" v-on:click.stop.prevent="removeFocus" @click="focusField('location')">
+                          {{ location }}<span v-if="!location" class="text-gray-500">Houghton-le-Spring, Sunderland</span>
+                        </span>
+                        <input
+                          ref="location"
+                          v-model="location" 
+                          v-show="showField('location')"
+                          type="text" 
+                          placeholder="Houghton-le-Spring, Sunderland"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
+                          @focus="focusField('location')" 
+                          @blur="blurField"
+                        >
                       </span>
-                      <input
-                        ref="location"
-                        v-model="location" 
-                        v-show="showField('location')"
-                        type="text" 
-                        placeholder="Houghton-le-Spring, Sunderland"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                        @focus="focusField('location')" 
-                        @blur="blurField"
-                      >
-                    </span>
+                      <alerts-component 
+                        v-if="pending_changes.location"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.location"
+                        :detail='rejected_changes.location'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+                    </div>
+
+                        
                   </div>
                 </div>
               </div>
               <div class="mt-12 py-10 border-t border-gray-400 text-center">
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4">  
-                    <div class="edit-field">
+                    <div class="relative edit-field">
                       <a name="summary"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
                         Summary Profile
                       </h4>
+
+                      <alerts-component 
+                        v-if="pending_changes.summary"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+
+                      <alerts-component 
+                        v-if="rejected_changes.summary"
+                        :detail='rejected_changes.summary'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('summary')" v-on:click.stop.prevent="removeFocus" @click="focusField('summary')">
                           <span v-html="summary"></span>
@@ -201,13 +264,28 @@
                       </p>
                     </div>
   
-                    <div>
+                    <div class="relative">
                       <a name="detail"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
                         Main Achievements and Expertise
                       </h4>
+
+                      <alerts-component 
+                        v-if="pending_changes.detail"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.detail"
+                        :detail='rejected_changes.detail'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+                      
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('detail')" v-on:click.stop.prevent="removeFocus" @click="focusField('detail')">
                           <span v-html="detail"></span>
@@ -227,13 +305,28 @@
                       </p>
                     </div>
 
-                    <div>
+                    <div class="relative">
                       <a name="experience"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
                         Commercial Experience
                       </h4>
+
+                      <alerts-component 
+                        v-if="pending_changes.experience"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.experience"
+                        :detail='rejected_changes.experience'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+                      
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('experience')" v-on:click.stop.prevent="removeFocus" @click="focusField('experience')">
                           <span v-html="experience"></span>
@@ -253,13 +346,28 @@
                       </p>
                     </div>
   
-                    <div>
+                    <div class="relative">
                       <a name="qualifications"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
                         Relevant Qualifications &amp; Training
                       </h4>
+
+                      <alerts-component 
+                        v-if="pending_changes.qualifications"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.qualifications"
+                        :detail='rejected_changes.qualifications'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+                      
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('qualifications')" v-on:click.stop.prevent="removeFocus" @click="focusField('qualifications')">
                           <span v-html="qualifications"></span>
@@ -279,13 +387,28 @@
                       </p>
                     </div>
   
-                    <div>
+                    <div class="relative">
                       <a name="attributes"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
                         Personal Attributes/Competences
                       </h4>
+
+                      <alerts-component 
+                        v-if="pending_changes.attributes"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.attributes"
+                        :detail='rejected_changes.attributes'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+                      
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('attributes')" v-on:click.stop.prevent="removeFocus" @click="focusField('attributes')">
                           <span v-html="attributes"></span>
@@ -305,13 +428,28 @@
                       </p>
                     </div>
   
-                    <div>
+                    <div class="relative">
                       <a name="websites"></a>
                       <h4
                         class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                       >
                         Personal Websites
                       </h4>
+
+                      <alerts-component 
+                        v-if="pending_changes.websites"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.websites"
+                        :detail='rejected_changes.websites'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                      />
+                      
                       <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
                         <span class="field-value" v-show="!showField('websites')" v-on:click.stop.prevent="removeFocus" @click="focusField('websites')">
                           <span v-html="websites"></span>
@@ -347,6 +485,7 @@ import Vue from 'vue'
 import { upload } from '~/services/file-upload';
 import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
+import AlertsComponent from "~/components/Alerts.vue";
 
 import axios from "axios";
 
@@ -357,7 +496,8 @@ export default Vue.extend({
   middleware: 'auth',
   components: {
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    AlertsComponent
   },
 
   data() {
@@ -375,12 +515,25 @@ export default Vue.extend({
         qualifications: '',
         attributes: '',
         websites: '',
+        pending_changes: [],
+        rejected_changes: [],
         
         uploadedFiles: [],
         uploadError: null,
         currentStatus: null,
         uploadFieldName: 'profileImage',
-        editField : ''
+        editField : '',
+        warning_alert : {
+          alert_type : 'warning', 
+          title : 'Pending', 
+          message : 'Your change is pending approval'
+        },
+        error_alert : {
+          alert_type : 'error', 
+          title : 'Error', 
+          message : 'Your change has been rejected.',
+          detail : ''
+        }
       }
   },
   methods: {
@@ -458,6 +611,8 @@ export default Vue.extend({
         )
         .then(response => {
           this.data = response.data.result;
+          this.pending_changes[field] = "true";
+          delete this.rejected_changes[field];
         })
         .catch(error => {
           console.log(error)
@@ -505,6 +660,8 @@ export default Vue.extend({
         this.qualifications = response.data.result.qualifications;
         this.attributes = response.data.result.attributes;
         this.websites = response.data.result.websites;
+        this.pending_changes = typeof response.data.result.pending != 'undefined' ? response.data.result.pending : [];
+        this.rejected_changes = typeof response.data.result.rejected != 'undefined' ? response.data.result.rejected : [];
       }
     })
     .catch(error => {
