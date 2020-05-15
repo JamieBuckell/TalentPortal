@@ -311,3 +311,30 @@ export default Vue.extend({
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 </script>
+<style type="text/css">
+  .search-table-wrapper thead tr th {
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-size: .75rem;
+    color: #718096;
+    text-align: left;
+    padding:.75rem 1.25rem;
+    font-weight: 600;
+    border-bottom-width: 2px;
+    border-color: #edf2f7;
+    background-color: #f7fafc;
+    box-sizing: border-box;
+    margin: 0;
+  
+  }
+  .search-table-wrapper tbody tr td {
+    font-size: .875rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom-width: 1px;
+    border-color: #edf2f7;
+    background-color: #fff;
+  }
+</style>
