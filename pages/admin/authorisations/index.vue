@@ -148,7 +148,6 @@ import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
 import SearchformComponent from "~/components/SearchForm.vue";
 import PopularprofilesComponent from "~/components/PopularProfiles.vue";
-import ModalComponent from "~/components/Modal.vue";
 
 import { Vuetable } from 'vuetable-2';
 
@@ -162,8 +161,7 @@ export default Vue.extend({
     FooterComponent,
     SearchformComponent,
     PopularprofilesComponent,
-    Vuetable,
-    ModalComponent
+    Vuetable
   },
   data () {
     return {
