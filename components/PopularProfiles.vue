@@ -20,9 +20,6 @@
                 />
                 <div class="pt-6 text-center">
                   <h5 class="text-xl font-bold">{{ profile.job_title }}</h5>
-                  <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                    6 Years Commercial Experience
-                  </p>
                   <div class="mt-6">
                     <button
                       class="bg-purple-800 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
