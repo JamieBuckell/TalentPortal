@@ -70,7 +70,7 @@
                 :css="css.table"
               >
                 <div slot="actions" slot-scope="props">
-                  <div v-if="!props.rowData.approved">
+                  <div v-if="!props.rowData.approved && !props.rowData.rejected">
                     <button 
                       class="bg-green-400 text-white active:bg-green-200 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" 
                       @click="onActionClicked('approve-item', props)"
@@ -83,12 +83,17 @@
                       @click="onActionClicked('reject-item', props)"
                     >
                       <i class="fa fa-times"></i>
+                      
                       Reject
                     </button>
                   </div>
 
-                  <div v-else>
+                  <div v-else-if="props.rowData.approved">
                     <p class="font-bold text-green-600">Approved</p>
+                  </div>
+
+                  <div v-else-if="props.rowData.rejected">
+                    <p class="font-bold text-red-600">Rejected</p>
                   </div>
                 </div>
               </vuetable>
@@ -135,12 +140,15 @@
   </div>
 </template>
 
+    
+
 <script lang="ts">
 import Vue from 'vue'
 import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
 import SearchformComponent from "~/components/SearchForm.vue";
 import PopularprofilesComponent from "~/components/PopularProfiles.vue";
+import ModalComponent from "~/components/Modal.vue";
 
 import { Vuetable } from 'vuetable-2';
 
@@ -154,10 +162,15 @@ export default Vue.extend({
     FooterComponent,
     SearchformComponent,
     PopularprofilesComponent,
-    Vuetable
+    Vuetable,
+    ModalComponent
   },
   data () {
     return {
+      modal_title: 'Please provide a rejection reason',
+      modal_content: '',
+      modal_footer: '',
+      isModalVisible: false,
       isAdmin: false,
       fields: [
         {
@@ -239,6 +252,12 @@ export default Vue.extend({
     });
   },
   methods: {
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
     dataManager(sortOrder) {
       if (this.data.length < 1) return;
 
@@ -268,29 +287,24 @@ export default Vue.extend({
             if (response.data.result) {
               data.rowData.approved = 1;
             }
-
-            console.log(response.data.result);
           })
           .catch(error => {
             console.log(error)
           });
-          console.log(data.rowData.id);
           break;
         case 'reject-item':
           axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/manage-changes", 
-            { id: data.rowData.id, type: 'reject' },
+            { id: data.rowData.id, type: 'reject', detail: 'None' },
             { headers: headers }
           )
           .then(response => {
-            if (response.data.result && response.data.result === true) {
-              this.data.splice(data.rowIndex, 1);
+            if (response.data.result) {
+              data.rowData.rejected = 1;
             }
-            console.log(response.data.result);
           })
           .catch(error => {
             console.log(error)
           });
-          console.log(data.rowData.id);
           break;
       }
     }
@@ -299,31 +313,3 @@ export default Vue.extend({
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 </script>
-
-<style type="text/css">
-  .search-table-wrapper thead tr th {
-    letter-spacing: .05em;
-    text-transform: uppercase;
-    font-size: .75rem;
-    color: #718096;
-    text-align: left;
-    padding:.75rem 1.25rem;
-    font-weight: 600;
-    border-bottom-width: 2px;
-    border-color: #edf2f7;
-    background-color: #f7fafc;
-    box-sizing: border-box;
-    margin: 0;
-  
-  }
-  .search-table-wrapper tbody tr td {
-    font-size: .875rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-    border-bottom-width: 1px;
-    border-color: #edf2f7;
-    background-color: #fff;
-  }
-</style>
