@@ -29,7 +29,7 @@ export const actions = {
     const user = await Auth.signUp({
       username: email,
       password,
-      attributes: {"custom:full_name" : firstName + ' ' + lastName }
+      attributes: { "given_name": firstName, "family_name": lastName }
     })
     return user
   },
