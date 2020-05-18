@@ -16,5 +16,23 @@
                 "talentportal50624965": {}
             }
         }
+    },
+    "leenatt": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-talentportal-leenatt-123556-authRole",
+            "UnauthRoleArn": "arn:aws:iam::382003548465:role/amplify-talentportal-leenatt-123556-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::382003548465:role/amplify-talentportal-leenatt-123556-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "amplify-talentportal-leenatt-123556-deployment",
+            "UnauthRoleName": "amplify-talentportal-leenatt-123556-unauthRole",
+            "StackName": "amplify-talentportal-leenatt-123556",
+            "StackId": "arn:aws:cloudformation:eu-west-2:382003548465:stack/amplify-talentportal-leenatt-123556/bdd704e0-98fb-11ea-b2da-06452e71541c",
+            "AmplifyAppId": "drwcvwzu0u1dk"
+        },
+        "categories": {
+            "auth": {
+                "talentportal50624965": {}
+            }
+        }
     }
 }
