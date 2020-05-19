@@ -1,9 +1,53 @@
 <template>
-  <div class="p-6">
-    <leighton-form ref="form"></leighton-form>
-    <hr class="my-6">
-    <pre>{{ data | pretty }}</pre>
-    <pre>{{ validity | pretty }}</pre>
+  <div>
+    <section class="relative block ">
+
+      <div
+        class="relative pt-16 pb-32 flex content-center items-center justify-center"
+        style="min-height: 25vh;"
+      >
+        <div
+          class="absolute top-0 w-full h-full bg-purple-900"
+          style="background-image: linear-gradient(90deg, rgba(81,60,127,1) 0%, rgba(201,67,126,1) 100%);"
+        ></div>
+        <div
+          class="absolute top-0 w-full h-full"
+          style="background-size: 100%; background-repeat: no-repeat;"
+          :style="{'background-image': 'url(' + require('~/assets/img/register_bg_2.png') + ')'}"
+        >
+          <span
+            id="blackOverlay"
+            class="w-full h-full absolute opacity-25 bg-black"
+          ></span>
+        </div>
+        <div
+          class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
+          style="height: 70px; transform: translateZ(0px);"
+        >
+          <svg
+            class="absolute bottom-0 overflow-hidden"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            version="1.1"
+            viewBox="0 0 2560 100"
+            x="0"
+            y="0"
+          >
+            <polygon
+              class="text-gray-300 fill-current"
+              points="2560 0 2560 100 0 100"
+            ></polygon>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-6 relative py-16 bg-gray-300">
+      <leighton-form ref="form"></leighton-form>
+      <hr class="my-6">
+      <pre>{{ data | pretty }}</pre>
+      <pre>{{ validity | pretty }}</pre>
+    </section>
   </div>
 </template>
 <script>
@@ -12,7 +56,7 @@ import "leighton-form"; // our form component, imported from npm
 export default {
   data: function() {
     return {
-      cssUrl: "theme.css", // this gives us some basic css to work with
+      cssUrl: require('~/assets/css/formbuilder.css'), // this gives us some basic css to work with
       fields: [ // fields the form is built from, including validation rules
         {
           field: "firstName",
@@ -20,7 +64,7 @@ export default {
           label: "First Name",
           placeholder: "e.g. Captain Awesome",
           hint: "This field is required and validation will not pass without it.", 
-          css: "px-5",
+          css: "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center",
           validation: {
             // simple internal validation
             presence: { allowEmpty: false, message: "First Name is required" }
@@ -31,7 +75,7 @@ export default {
           field: "surname",
           fieldType: "text",
           label: "Surname",
-          css: "px-5"
+          css: "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center"
         },
         {
           field: "address",
@@ -42,21 +86,21 @@ export default {
               fieldType: "text",
               label: "Street",
               columns: 4,
-              css: "px-5"
+              css: "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center"
             },
             {
               field: "city",
               fieldType: "text",
               label: "City",
               columns: 4,
-              css: "px-5"
+              css: "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center"
             },
             {
               field: "postcode",
               fieldType: "text",
               label: "Postcode",
               columns: 4,
-              css: "px-5"
+              css: "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center"
             }
           ]
         }

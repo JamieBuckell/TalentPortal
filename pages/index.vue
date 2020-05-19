@@ -1,7 +1,5 @@
 <template>
   <div>
-    <navbar-component></navbar-component>
-    <main>
       <div
         class="relative pt-16 pb-32 flex content-center items-center justify-center"
         style="min-height: 75vh;"
@@ -238,15 +236,11 @@
           </div>
         </div>
       </section>
-    </main>
-    <footer-component></footer-component>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import NavbarComponent from "~/components/Navbar.vue";
-import FooterComponent from "~/components/Footer.vue";
 import SearchformComponent from "~/components/SearchForm.vue";
 import PopularprofilesComponent from "~/components/PopularProfiles.vue";
 
@@ -255,8 +249,6 @@ import axios from "axios";
 export default Vue.extend({
   name: "landing-page",
   components: {
-    NavbarComponent,
-    FooterComponent,
     SearchformComponent,
     PopularprofilesComponent
   },
