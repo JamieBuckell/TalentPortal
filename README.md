@@ -2,6 +2,8 @@
 
 > Portal for viewing available Talent for hire. Proof of concept
 
+All changes to be merged into development branch before pushing to master. 
+
 ## Build Setup
 
 ```bash
