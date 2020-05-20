@@ -37,9 +37,17 @@ export const actions = {
   async confirmRegistration(_, { email, code }) {
     return await Auth.confirmSignUp(email, code)
   },
-
+  
   async completeNewPassword(_, {user, newPassword }) {
     return await Auth.completeNewPassword(user, newPassword)
+  },
+
+  async forgotPassword(_, { email }) {
+    return await Auth.forgotPassword(email);
+  },
+
+  async forgotPasswordConfirm(_, { email, code, newPassword }) {
+    return await Auth.forgotPasswordSubmit(email, code, newPassword);
   },
 
   async login({ commit }, { email, password }) {

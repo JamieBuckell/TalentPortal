@@ -66,7 +66,7 @@
               </div>
               <div class="w-full lg:w-5/12 px-10">
                 <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
-                  <div class="relative flex flex-col min-w-0 break-words w-full mb-6 border-0">
+                  <div v-if="login_step === login_steps.login" class="relative flex flex-col min-w-0 break-words w-full mb-6 border-0">
                     <div v-if="!$auth.isAuthenticated">
                       <form @submit.prevent="login">
                         <div class="text-gray-700 mb-3 font-bold">
@@ -99,17 +99,32 @@
                               style="transition: all 0.15s ease 0s;"
                             />
                           </div>
-                          <div>
-                            <label class="inline-flex items-center cursor-pointer"
-                              ><input
-                                id="customCheckLogin"
-                                type="checkbox"
-                                class="form-checkbox text-gray-800 ml-1 w-5 h-5"
-                                style="transition: all 0.15s ease 0s;"
-                              /><span class="ml-2 text-sm font-semibold text-gray-700"
-                                >Remember me</span
-                              ></label
-                            >
+                          <div class="flex flex-wrap justify-center">
+                            <div class="relative w-full mb-3 lg:w-6/12">
+                              <label class="inline-flex items-center cursor-pointer"
+                                ><input
+                                  id="customCheckLogin"
+                                  type="checkbox"
+                                  class="form-checkbox text-gray-800 ml-1 w-5 h-5"
+                                  style="transition: all 0.15s ease 0s;"
+                                /><span class="ml-2 text-sm font-semibold text-gray-700"
+                                  >Remember me</span
+                                ></label
+                              >
+                            </div>
+                            <div class="relative w-full mb-3 lg:w-6/12 text-right">
+                              <div class="inline-flex items-center cursor-pointer mr-3">
+                                <span class="form-checkbox text-gray-800 ml-1 w-5 h-5"></span>
+                                <button
+                                  class="ml-2 text-sm font-semibold text-gray-700"
+                                  type="cancel"
+                                  @click="forgotPassword()"
+                                  style="transition: all 0.15s ease 0s;"
+                                >
+                                  Forgotten Password?
+                                </button>
+                              </div>
+                            </div>
                           </div>
                           <div class="text-center mt-6">
                             <button
@@ -177,6 +192,116 @@
                           </div>
                       </form>
                     </div>
+                  </div>
+
+                  <div v-if="login_step === login_steps.confirm">
+                    <form @submit.prevent="passwordReset">
+                      <div class="text-gray-700 mb-3 font-bold">
+                        <h1 class="text-2xl">Password Reset</h1>
+                      </div>
+                      <div class="relative w-full mb-3">
+                        <label
+                          class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          for="grid-email"
+                          >Email</label
+                        >
+                        <input 
+                          v-model="passwordResetForm.email" 
+                          id="grid-email"
+                          type="email" 
+                          placeholder="Email" 
+                          required
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" 
+                          style="transition: all 0.15s ease 0s;" />
+                      </div>
+
+                      <div class="text-center mt-6">
+                        <button
+                          class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                          type="submit"
+                          style="transition: all 0.15s ease 0s;"
+                        >
+                          Reset Password
+                        </button>
+                        <button
+                          class="bg-red-700 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                          type="cancel"
+                          @click="cancelConfirm('login')"
+                          style="transition: all 0.15s ease 0s;"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                    <!-- Authenticated -->
+                  </div>
+
+                  <div v-if="login_step === login_steps.reset">
+                    <form @submit.prevent="passwordResetConfirm">
+                      <div class="text-gray-700 mb-3 font-bold">
+                        <h1 class="text-2xl">New Password</h1>
+                      </div>
+                      <div class="relative w-full mb-3">
+                        <label
+                          class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          for="grid-code"
+                          >Code</label
+                        >
+                        <input 
+                          v-model="passwordResetConfirmForm.code" 
+                          id="grid-code"
+                          type="text" 
+                          placeholder="Code" 
+                          required
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" 
+                          style="transition: all 0.15s ease 0s;" />
+                      </div>
+                      <div class="relative w-full mb-3">
+                        <label
+                          class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          for="grid-password">
+                          New Password
+                        </label>
+                        <input
+                          v-model="passwordResetConfirmForm.newPassword"
+                          type="password"
+                          placeholder="Password"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+                          style="transition: all 0.15s ease 0s;"
+                        />
+                      </div>
+                      <div class="relative w-full mb-3">
+                        <label
+                          class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          for="grid-password">
+                          Confirm Password
+                        </label>
+                        <input
+                          v-model="passwordResetConfirmForm.newPasswordConfirm"
+                          type="password"
+                          placeholder="Confirm Password"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+                          style="transition: all 0.15s ease 0s;"
+                        />
+                      </div>
+                      <div class="text-center mt-6">
+                        <button
+                          class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                          type="submit"
+                          style="transition: all 0.15s ease 0s;"
+                        >
+                          Change Password
+                        </button>
+                        <button
+                          class="bg-red-700 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                          type="cancel"
+                          @click="cancelConfirm('login')"
+                          style="transition: all 0.15s ease 0s;"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
                     <!-- Authenticated -->
                   </div>
                 </div>
@@ -187,7 +312,7 @@
                   <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
                     <div class="relative flex flex-col min-w-0 break-words w-full mb-6 border-0">
                       <div v-if="!$auth.isAuthenticated">              
-                        <form v-if="step === steps.register" @submit.prevent="register">
+                        <form v-if="register_step === register_steps.register" @submit.prevent="register">
                           <div class="text-gray-700 mb-3 font-bold">
                             <h1 class="text-2xl">Register</h1>
                           </div>
@@ -259,7 +384,7 @@
                           </div>
                         </form>
 
-                        <form v-else @submit.prevent="confirm">
+                        <form v-else @submit.prevent="registerConfirm">
                           <div class="text-gray-700 mb-3 font-bold">
                             <h1 class="text-2xl">Registration Confirmation</h1>
                           </div>
@@ -270,7 +395,7 @@
                               >Email</label
                             >
                             <input 
-                              v-model="confirmForm.email" 
+                              v-model="registerConfirmForm.email" 
                               id="grid-email"
                               type="email" 
                               placeholder="Email" 
@@ -287,7 +412,7 @@
                               >Code</label
                             >
                             <input 
-                              v-model="confirmForm.code" 
+                              v-model="registerConfirmForm.code" 
                               id="grid-code"
                               type="text" 
                               placeholder="Code" 
@@ -307,7 +432,7 @@
                             <button
                               class="bg-red-700 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                               type="cancel"
-                              @click="cancelConfirm()"
+                              @click="cancelConfirm('register')"
                               style="transition: all 0.15s ease 0s;"
                             >
                               Cancel
@@ -331,9 +456,14 @@
 <script lang="ts">
 import Vue from 'vue'
 
-const steps = {
+const login_steps = {
+  login: 'LOGIN',
+  confirm: 'CONFIRM',
+  reset: 'RESET'
+}
+const register_steps = {
   register: 'REGISTER',
-  confirm: 'CONFIRM'
+  confirm: 'CONFIRM',
 }
 
 export default Vue.extend({
@@ -350,15 +480,25 @@ export default Vue.extend({
       newPassword: '',
       newPasswordConfirm: ''
     },
-    steps: { ...steps },
-    step: steps.register,
+    passwordResetForm: {
+      email: ''
+    },
+    passwordResetConfirmForm: {
+      code: '',
+      newPassword: '',
+      newPasswordConfirm: ''
+    },
+    login_steps: { ...login_steps },
+    login_step: login_steps.login,
+    register_steps: { ...register_steps },
+    register_step: register_steps.register,
     registerForm: {
       email: '',
       firstName: '',
       lastName: '',
       password: ''
     },
-    confirmForm: {
+    registerConfirmForm: {
       email: '',
       code: ''
     }
@@ -382,31 +522,45 @@ export default Vue.extend({
       }
     },
     async completeNewPassword() {
-      try {        
-        this.authUser = await this.$store.dispatch(
-          {
-              type: 'auth/completeNewPassword',
-              user: this.authUser,
-              newPassword: this.loginForm.newPassword
-          }
-        )
+      try {    
+        if (this.loginForm.newPassword == this.loginForm.newPasswordConfirm) {
+          this.authUser = await this.$store.dispatch(
+            {
+                type: 'auth/completeNewPassword',
+                user: this.authUser,
+                newPassword: this.loginForm.newPassword
+            }
+          )
 
-        if (!this.authUser.challengeName) {
-          this.$router.push('/')
-        }
+          if (!this.authUser.challengeName) {
+            this.$router.push('/')
+          }
+        } else {
+          this.errorMessage = 'Passwords do not match';
+          this.hasError = true;
+        }  
 
       } catch (error) {
         this.hasError = true;
       }
     },
-    async cancelConfirm() {
+    async cancelConfirm(type) {
       try {
-        this.registerForm.email = '';
-        this.registerForm.firstName = '';
-        this.registerForm.lastName = '';
-        this.registerForm.password = '';
+        if (type == 'login') {
+          this.loginForm.email = this.passwordResetForm.email;
+          this.loginForm.password = '';
+          this.loginForm.newPassword = '';
+          this.loginForm.newPasswordConfirm = '';
 
-        this.step = steps.register;
+          this.login_step = login_steps.login;
+        } else if (type == 'register') {
+          this.registerForm.email = '';
+          this.registerForm.firstName = '';
+          this.registerForm.lastName = '';
+          this.registerForm.password = '';
+
+          this.register_step = register_steps.register;
+        }
       } catch (error) {
         this.hasError = true;
       }
@@ -414,23 +568,53 @@ export default Vue.extend({
     async register() {
       try {
         await this.$store.dispatch('auth/register', this.registerForm)
-        this.confirmForm.email = this.registerForm.email
-        this.step = this.steps.confirm
+        this.registerConfirmForm.email = this.registerForm.email
+        this.register_step = this.register_steps.confirm
       } catch (error) {
         this.hasError = true;
         this.errorMessage = error.message
         console.log({ error })
       }
     },
-    async confirm() {
+    async registerConfirm() {
       try {
-        await this.$store.dispatch('auth/confirmRegistration', this.confirmForm)
+        await this.$store.dispatch('auth/confirmRegistration', this.registerConfirmForm)
 
         let authUser = await this.$store.dispatch('auth/login', this.registerForm)
 
-        await this.$store.dispatch('profile/create', {email: this.confirmForm.email, fullName: this.registerForm.firstName+' '+this.registerForm.lastName})
+        await this.$store.dispatch('profile/create', {email: this.registerConfirmForm.email, fullName: this.registerForm.firstName+' '+this.registerForm.lastName})
 
         this.$router.push('/manage')
+      } catch (error) {
+        console.log({ error })
+      }
+    },
+    async forgotPassword() {
+        this.passwordResetForm.email = this.loginForm.email
+        this.login_step = this.login_steps.confirm
+    },
+    async passwordReset() {
+      try {
+        await this.$store.dispatch('auth/forgotPassword', this.passwordResetForm)
+
+        this.passwordResetConfirmForm.email = this.passwordResetForm.email
+        this.login_step = this.login_steps.reset
+      } catch (error) {
+        console.log({ error })
+      }
+    },
+    async passwordResetConfirm() {
+      try {
+        if (this.passwordResetConfirmForm.newPassword == this.passwordResetConfirmForm.newPasswordConfirm) {
+          await this.$store.dispatch('auth/forgotPasswordConfirm', this.passwordResetConfirmForm)
+
+          let authUser = await this.$store.dispatch('auth/login', {email: this.passwordResetConfirmForm.email, password: this.passwordResetConfirmForm.newPassword})
+
+          this.$router.push('/')
+        } else {
+          this.errorMessage = 'Passwords do not match';
+          this.hasError = true;
+        }  
       } catch (error) {
         console.log({ error })
       }
