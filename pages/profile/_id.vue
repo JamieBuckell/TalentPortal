@@ -140,7 +140,7 @@
                       Commercial Experience
                     </h4>
                     <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
-                      {{ experience }}
+                      <span v-html="experience"></span>
                     </p>
                   </div>
 
@@ -152,7 +152,7 @@
                       Relevant Qualifications &amp; Training
                     </h4>
                     <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
-                      {{ qualifications }}
+                      <span v-html="qualifications"></span>
                     </p>
                   </div>
 
@@ -164,7 +164,7 @@
                       Personal Attributes/Competences
                     </h4>
                     <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
-                      {{ attributes }}
+                      <span v-html="attributes"></span>
                     </p>
                   </div>
 
@@ -176,7 +176,7 @@
                       Personal Websites
                     </h4>
                     <p class="mb-4 text-lg leading-relaxed text-gray-800 mb-10">
-                      {{ websites }}
+                      <span v-html="websites"></span>
                     </p>
                   </div>
                 </div>
