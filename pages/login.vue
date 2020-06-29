@@ -16,17 +16,15 @@
           class="w-full h-full absolute opacity-25 bg-black"
         ></span>
 
-        <div class="container relative mx-auto mt-40">
+        <div class="container relative mx-auto mt-32 md:mt-40">
           <div class="items-center flex flex-wrap">
             <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center">
-              <div class="pr-12">
-                <h1 class="text-white text-semibold text-5xl">
-                  Sign In / Register
-                </h1>
-                <p class="mt-4 text-lg text-gray-300">
-                  Sign into your existing account or register for a new profile
-                </p>
-              </div>
+              <h1>
+                Sign In / Register
+              </h1>
+              <p class="mt-4 text-lg text-gray-300">
+                Sign into your existing account or register for a new profile
+              </p>
             </div>
           </div>
         </div>
@@ -61,16 +59,18 @@
             <div class="flex flex-wrap justify-center">
 
               <div class="w-full lg:w-12/12 px-10 text-center">
-                <p v-if="hasError" class="text-red-500 font-semibold text-s py-10 login-error">{{ errorMessage }}</p>
-                <p v-if="!hasError" class="text-red-500 font-semibold text-s py-10 login-error">&nbsp;</p>
+                <p v-if="hasError" class="text-red-500 font-semibold text-s pt-8 login-error">
+                  {{ errorMessage }}
+                </p>
               </div>
-              <div class="w-full lg:w-5/12 px-10">
-                <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
-                  <div v-if="login_step === login_steps.login" class="relative flex flex-col min-w-0 break-words w-full mb-6 border-0">
+                
+              <div class="w-full lg:w-5/12 lg:px-10 mt-6 mb-6">
+                <div class="relative flex flex-col min-w-0 break-words w-full">
+                  <div v-if="login_step === login_steps.login" class="relative flex flex-col min-w-0 break-words w-full border-0">
                     <div v-if="!$auth.isAuthenticated">
                       <form @submit.prevent="login">
                         <div class="text-gray-700 mb-3 font-bold">
-                          <h1 class="text-2xl">Sign In</h1>
+                          <h2 class="text-2xl">Sign In</h2>
                         </div>
                           <div class="relative w-full mb-3">
                             <label
@@ -140,7 +140,7 @@
                     <div v-if="$auth.forcePasswordChange">
                       <form @submit.prevent="completeNewPassword">
                         <div class="text-gray-700 mb-3 font-bold">
-                          <h1 class="text-2xl">Password Change</h1>
+                          <h2 class="text-2xl">Password Change</h2>
                         </div>
                         <div class="text-purple-800 text-center mb-3 text-s font-bold">
                           <p>Before you can log in, you must first change your password.</p>
@@ -197,7 +197,7 @@
                   <div v-if="login_step === login_steps.confirm">
                     <form @submit.prevent="passwordReset">
                       <div class="text-gray-700 mb-3 font-bold">
-                        <h1 class="text-2xl">Password Reset</h1>
+                        <h2 class="text-2xl">Password Reset</h2>
                       </div>
                       <div class="relative w-full mb-3">
                         <label
@@ -239,7 +239,7 @@
                   <div v-if="login_step === login_steps.reset">
                     <form @submit.prevent="passwordResetConfirm">
                       <div class="text-gray-700 mb-3 font-bold">
-                        <h1 class="text-2xl">New Password</h1>
+                        <h2 class="text-2xl">New Password</h2>
                       </div>
                       <div class="relative w-full mb-3">
                         <label
@@ -307,14 +307,14 @@
                 </div>
               </div>
 
-              <div class="w-full lg:w-7/12 px-10 border-l border-gray-900">
-                <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
-                  <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
-                    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 border-0">
+              <div class="w-full lg:w-7/12 lg:px-10 border-l lg:border-gray-900 mt-6 mb-6">
+                <div class="relative flex flex-col min-w-0 break-words w-full">
+                  <div class="relative flex flex-col min-w-0 break-words w-full">
+                    <div class="relative flex flex-col min-w-0 break-words w-full border-0">
                       <div v-if="!$auth.isAuthenticated">              
                         <form v-if="register_step === register_steps.register" @submit.prevent="register">
                           <div class="text-gray-700 mb-3 font-bold">
-                            <h1 class="text-2xl">Register</h1>
+                            <h2 class="text-2xl">Register</h2>
                           </div>
                           <div class="relative w-full mb-3">
                             <label
@@ -386,7 +386,7 @@
 
                         <form v-else @submit.prevent="registerConfirm">
                           <div class="text-gray-700 mb-3 font-bold">
-                            <h1 class="text-2xl">Registration Confirmation</h1>
+                            <h2 class="text-2xl">Registration Confirmation</h2>
                           </div>
                           <div class="relative w-full mb-3">
                             <label
@@ -518,6 +518,7 @@ export default Vue.extend({
           this.errorMessage = 'An unexpected error occurred';
         }
       } catch (error) {
+        console.log(error);
         this.hasError = true;
       }
     },
