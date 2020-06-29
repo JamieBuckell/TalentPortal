@@ -1,15 +1,15 @@
 <template>
   <nav
-    class="z-40 top-0 absolute w-full flex flex-wrap w-full items-center justify-between px-2 py-3 navbar-expand-lg"
+    class="z-50 lg:z-40 top-0 absolute w-full flex flex-wrap w-full items-center justify-between px-2 py-3 navbar-expand-lg"
   >
     <div
-      class="container px-4 mx-auto flex flex-wrap items-center justify-between"
+      class="container px-2 lg:px-4 mx-auto flex flex-wrap items-center justify-between"
     >
       <div
         class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
       >
         <a
-          class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white"
+          class="text-sm font-bold leading-relaxed inline-block mx-4 py-2 whitespace-no-wrap uppercase text-white"
           href="/"
           >Leighton Talent Portal</a
         ><button
@@ -21,14 +21,14 @@
         </button>
       </div>
       <div
-        class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none"
+        class="lg:flex flex-grow items-center bg-gray-200 lg:bg-transparent lg:shadow-none"
         v-bind:class="{'hidden': !showMenu, 'block': showMenu}"
       >
-        <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+        <ul class="flex flex-col lg:flex-row list-none lg:ml-auto shadow-lg lg:shadow-none">
           
           <li v-if="isAdmin" class="flex items-center">
             <a
-              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              class="nav-link"
               href="/admin"
               style="transition: all 0.15s ease 0s;"
             >
@@ -37,7 +37,7 @@
           </li>
           <li v-if="$auth.isAuthenticated" class="flex items-center">
             <a
-              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              class="nav-link"
               href="/manage"
               style="transition: all 0.15s ease 0s;"
             >
@@ -46,7 +46,7 @@
           </li>
           <li v-if="$auth.isAuthenticated" class="flex items-center">
             <button
-              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              class="nav-link"
               type="button"
               @click="$store.dispatch('auth/logout')"
               style="transition: all 0.15s ease 0s;"
@@ -56,7 +56,7 @@
           </li>
           <li v-if="!isLogin && !$auth.isAuthenticated" class="flex items-center">
             <a
-              class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+              class="nav-link"
               href="/login"
               style="transition: all 0.15s ease 0s;"
             >

@@ -103,7 +103,7 @@ export const actions = {
     return await Auth.forgotPasswordSubmit(email, code, newPassword);
   },
 
-  async login({ commit }, { email, password }) {
+  async login({ commit, dispatch }, { email, password }) {
     const user = await Auth.signIn(email, password)
 
     commit('set', user)

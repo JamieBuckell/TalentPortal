@@ -152,18 +152,6 @@ html {
   box-sizing: border-box;
 }
 
-.profile-image {
-  background-color: #FFF;
-  background-size: contain;
-  height: 250px;
-  width: 250px;
-  margin-left: -40px;
-  border-top-left-radius: 0.5em;
-  border-bottom-left-radius: 0.5em;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 *,
 *:before,
 *:after {

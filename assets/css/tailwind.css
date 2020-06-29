@@ -4,6 +4,82 @@
 /* purgecss end ignore */
 @import 'tailwindcss/utilities';
 
+h1 {
+    @apply text-white font-semibold text-4xl
+}
+
+.btn {
+    @apply uppercase text-white font-bold shadow text-xs px-4 py-2 rounded outline-none mb-1
+}
+.btn:active {
+    @apply bg-pink-600
+}
+.btn:hover {
+    @apply shadow-md
+}
+.btn:focus {
+    @apply outline-none
+}
+
+.btn-gray {
+    @apply bg-gray-800
+}
+
+.btn-purple {
+    @apply bg-purple-800
+}
+
 .content-container {
-    @apply relative flex flex-col min-w-0 break-words bg-gray-300 w-full mb-6 shadow-xl rounded-lg;
+    @apply relative flex flex-col min-w-0 break-words bg-gray-300 w-full mb-6 shadow-xl rounded-lg
+}
+.nav-link {
+    @apply w-full bg-transparent text-gray-800 text-xs font-bold uppercase px-4 py-4 outline-none text-left
+}
+.nav-link:active {
+    @apply bg-gray-100
+}
+.nav-link:focus {
+    @apply outline-none
+}
+
+@screen sm {
+    .btn { 
+        @apply mr-2 
+    }
+}
+
+@screen md {
+    h1 {
+        @apply text-5xl
+    }
+}
+
+@screen lg {
+    .nav-link {
+        @apply w-auto bg-white rounded shadow mr-1 mb-0 ml-3 py-2
+    }
+    .nav-link:hover {
+        @apply shadow-md
+    }
+}
+
+.profile-image {
+    width: 100%;
+    height: auto;
+    min-height: 250px;
+    background-color: #FFF;
+    background-size: contain;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@screen lg {
+    .profile-image {
+
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0.5em;
+    }
 }
