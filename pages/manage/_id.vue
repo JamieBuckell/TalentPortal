@@ -1,6 +1,6 @@
 <template>
   <div class="profile-page">
-    <section class="relative block" style="height: 500px;">
+    <section class="relative block" style="height: 300px;">
 
       <div
         class="absolute top-0 w-full h-full bg-purple-900"
@@ -39,191 +39,190 @@
     </section>
     <section class="relative py-16 bg-gray-800">
       <div class="container mx-auto px-4" @click="removeFocus()">
-        <div
-          class="relative flex flex-col min-w-0 break-words bg-gray-300 w-full mb-6 shadow-xl rounded-lg -mt-64"
-        >
+        <div class="content-container -mt-64">
           <div class="px-6">
-            <div class="flex flex-wrap justify-center">
-              
-              <div
-                class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center"
-              >
+            <div class="flex flex-wrap">
+              <div class="w-full md:w-4/12 lg:w-3/12 px-4"> 
                 <div class="relative">
-                  <!-- -->
-                  <form enctype="multipart/form-data" novalidate> 
-                    <div 
-                      class="profile-image-upload shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
-                      :style="{ backgroundImage: `url(${profile_image})` }"
-                        v-on:click="fileChoice()"
-                    >
-                      <svg viewBox="0 0 120 120">
-                        <circle cx="55" cy="55" r="50" class="dashed" />
-                        <foreignObject x="5" y="5" height="163px" width="163px">
-                          <div>
-                            <input type="file" ref="fileChoice" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
-                            accept="image/*" class="input-file">
-                            <p v-if="isInitial">
-                              Drag your file(s) here to begin<br> or click to browse
-                            </p>
-                            <p v-if="isSaving">
-                              Uploading {{ fileCount }} files...
-                            </p>
-                          </div>
-                        </foreignObject>
-                      </svg>
+                  <div class="profile-image" :style="{ backgroundImage: `url(${profile_image})` }">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-full md:w-8/12 lg:w-9/12 pt-6 ">
+                <div class="flex flex-wrap">
+                  <div class="w-full z-40">
+                    <div class="flex whitespace-no-wrap float-right">
+                      <button
+                        class="bg-purple-800 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                        @click="showModal(email_address)"
+                        style="transition: all 0.15s ease 0s;"
+                      >
+                        <i class="fas fa-envelope mr-2 text-lg text-gray-500"></i>
+                        Change Email
+                      </button>
+                      <a
+                        class="bg-gray-800 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
+                        href="/"
+                        style="transition: all 0.15s ease 0s;"
+                      >
+                        <i class="fas fa-arrow-left mr-2 text-lg text-gray-500"></i>
+                        Back
+                      </a>
                     </div>
-                  </form>
-                  <!-- -->
-                </div>
-              </div>
-              <!-- --
-              <div
-                class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center"
-              >
-                <div class="relative">
-                  <img
-                    alt="..."
-                    :src="profile_image"
-                    class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
-                    style="max-width: 150px;"
-                  />
-                </div>
-              </div>
-              <!-- -->
-              <div
-                class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
-              >
-              
-              </div>
-              <div class="w-full lg:w-4/12 px-4 lg:order-1">
-                <div class="flex justify-center py-4 lg:pt-4 pt-8">
-                  <a
-                    class="bg-gray-800 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
-                    href="/search"
-                    style="transition: all 0.15s ease 0s;"
-                  >
-                    <i class="fas fa-arrow-left mr-2 text-lg text-gray-500"></i>
-                    Back
-                  </a>
-                  <!--
-                  <div class="mr-4 p-3 text-center">
-                    <span
-                      class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                      >22</span
-                    ><span class="text-sm text-gray-500">Hires</span>
+
                   </div>
-                  -->
+                  <div class="w-full">
+                    <div class="flex flex-wrap -mt-12 profile-headline">
+                      <div class="w-full px-4">
+                        <div class="relative">
+                          <span class="block text-4xl font-semibold leading-normal text-gray-800 edit-field">
+                          <span class="field-value" v-show="!showField('full_name')" v-on:click.stop.prevent="removeFocus" @click="focusField('full_name')">
+                            {{ full_name }}<span v-if="!full_name" class="text-gray-500">Full Name</span>
+                          </span>
+                          <input
+                            ref="full_name"
+                            v-model="full_name"
+                            v-show="showField('full_name')"
+                            type="text"
+                            placeholder="Full Name"
+                            class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12"
+                            @focus="focusField('full_name')"
+                            @blur="blurField"
+                          >
+                        </span>
+                        <alerts-component 
+                          v-if="pending_changes.full_name"
+                          :alert_type='warning_alert.alert_type' 
+                          :title='warning_alert.title'
+                          :message='warning_alert.message'
+                        />
+                        <alerts-component 
+                          v-if="rejected_changes.full_name"
+                          :detail='rejected_changes.full_name'
+                          :alert_type='error_alert.alert_type' 
+                          :title='error_alert.title'
+                          :message='error_alert.message'
+                        />
+                        </div>
+                      </div>
+                      <div class="w-full px-4">
+                        <span class="block text-2xl font-semibold leading-normal text-gray-800 mb-2 edit-field">
+                          <span class="field-value" v-show="!showField('job_title')" v-on:click.stop.prevent="removeFocus" @click="focusField('job_title')">
+                            {{ job_title }}<span v-if="!job_title" class="text-gray-500">Job Title</span>
+                          </span>
+                          <input
+                          ref="job_title"
+                          v-model="job_title" 
+                          v-show="showField('job_title')" 
+                          type="text" 
+                          placeholder="Job Title"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
+                          @focus="focusField('job_title')" 
+                          @blur="blurField"
+                          >
+                        </span>
+                        <alerts-component 
+                        v-if="pending_changes.job_title"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                        />
+                        <alerts-component 
+                        v-if="rejected_changes.job_title"
+                        :detail='rejected_changes.job_title'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                        />
+                      </div>
+                      <div class="w-full px-4">
+                        <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
+                          <i class="fas fa-map-marker-alt text-lg text-gray-500"></i>
+                          <span class="field-value" v-show="!showField('location')" v-on:click.stop.prevent="removeFocus" @click="focusField('location')">
+                            {{ location }}<span v-if="!location" class="text-gray-500">Houghton-le-Spring, Sunderland</span>
+                          </span>
+                          <input
+                          ref="location"
+                          v-model="location" 
+                          v-show="showField('location')"
+                          type="text" 
+                          placeholder="Houghton-le-Spring, Sunderland"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
+                          @focus="focusField('location')" 
+                          @blur="blurField"
+                          >
+                        </span>
+                        <alerts-component 
+                        v-if="pending_changes.location"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                        />
+                        <alerts-component 
+                        v-if="rejected_changes.location"
+                        :detail='rejected_changes.location'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                        />
+                      </div>
+                      <div class="w-full px-4">
+                        <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
+                          <i class="fas fa-phone-square text-lg text-gray-500"></i>
+                          <span class="field-value" v-show="!showField('contact_number')" v-on:click.stop.prevent="removeFocus" @click="focusField('contact_number')">
+                            {{ contact_number }}<span v-if="!contact_number" class="text-gray-500">0191 305 5140</span>
+                          </span>
+                          <input
+                          ref="contact_number"
+                          v-model="contact_number" 
+                          v-show="showField('contact_number')"
+                          type="text" 
+                          placeholder="0191 305 5140"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
+                          @focus="focusField('contact_number')" 
+                          @blur="blurField"
+                          >
+                        </span>
+                        <alerts-component 
+                        v-if="pending_changes.contact_number"
+                        :alert_type='warning_alert.alert_type' 
+                        :title='warning_alert.title'
+                        :message='warning_alert.message'
+                        />
+                        <alerts-component 
+                        v-if="rejected_changes.contact_number"
+                        :detail='rejected_changes.contact_number'
+                        :alert_type='error_alert.alert_type' 
+                        :title='error_alert.title'
+                        :message='error_alert.message'
+                        />
+                      </div>
+                      <div class="w-full px-4">
+                        <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
+                          <i class="fas fa-envelope text-lg text-gray-500"></i>
+                          <span class="field-value">
+                            {{ email_address }}<span v-if="!email_address" class="text-gray-500">hello@leighton.com</span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="text-center mt-12">
-              <div class="flex flex-wrap justify-center">
-                <div class="w-full lg:w-9/12 px-4"> 
-                  <div class="relative">
-                    <span class="block text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2 edit-field">
-                      <span class="field-value" v-show="!showField('full_name')" v-on:click.stop.prevent="removeFocus" @click="focusField('full_name')">
-                        {{ full_name }}<span v-if="!full_name" class="text-gray-500">Full Name</span>
-                      </span>
-                      <input
-                        ref="full_name"
-                        v-model="full_name"
-                        v-show="showField('full_name')"
-                        type="text"
-                        placeholder="Full Name"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center"
-                        @focus="focusField('full_name')"
-                        @blur="blurField"
-                      >
-                    </span>
-                    <alerts-component 
-                      v-if="pending_changes.full_name"
-                      :alert_type='warning_alert.alert_type' 
-                      :title='warning_alert.title'
-                      :message='warning_alert.message'
-                    />
-                    <alerts-component 
-                      v-if="rejected_changes.full_name"
-                      :detail='rejected_changes.full_name'
-                      :alert_type='error_alert.alert_type' 
-                      :title='error_alert.title'
-                      :message='error_alert.message'
-                    />
-                  </div>
-
-                  <div class="relative">
-                  <span class="block text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2 edit-field">
-                    <span class="field-value" v-show="!showField('job_title')" v-on:click.stop.prevent="removeFocus" @click="focusField('job_title')">
-                      {{ job_title }}<span v-if="!job_title" class="text-gray-500">Job Title</span>
-                    </span>
-                    <input
-                      ref="job_title"
-                      v-model="job_title" 
-                      v-show="showField('job_title')" 
-                      type="text" 
-                      placeholder="Job Title"
-                      class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                      @focus="focusField('job_title')" 
-                      @blur="blurField"
-                    >
-                  </span>
-                    <alerts-component 
-                      v-if="pending_changes.job_title"
-                      :alert_type='warning_alert.alert_type' 
-                      :title='warning_alert.title'
-                      :message='warning_alert.message'
-                    />
-                    <alerts-component 
-                      v-if="rejected_changes.job_title"
-                      :detail='rejected_changes.job_title'
-                      :alert_type='error_alert.alert_type' 
-                      :title='error_alert.title'
-                      :message='error_alert.message'
-                    />
-                  </div>
-
-                  <div class="relative">
-                    <span class="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase edit-field">
-                      <i class="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>
-                      <span class="field-value" v-show="!showField('location')" v-on:click.stop.prevent="removeFocus" @click="focusField('location')">
-                        {{ location }}<span v-if="!location" class="text-gray-500">Houghton-le-Spring, Sunderland</span>
-                      </span>
-                      <input
-                        ref="location"
-                        v-model="location" 
-                        v-show="showField('location')"
-                        type="text" 
-                        placeholder="Houghton-le-Spring, Sunderland"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                        @focus="focusField('location')" 
-                        @blur="blurField"
-                      >
-                    </span>
-                    <alerts-component 
-                      v-if="pending_changes.location"
-                      :alert_type='warning_alert.alert_type' 
-                      :title='warning_alert.title'
-                      :message='warning_alert.message'
-                    />
-                    <alerts-component 
-                      v-if="rejected_changes.location"
-                      :detail='rejected_changes.location'
-                      :alert_type='error_alert.alert_type' 
-                      :title='error_alert.title'
-                      :message='error_alert.message'
-                    />
-                  </div>
-
-                      
-                </div>
-              </div>
-            </div>
-            <div class="mt-12 py-10 border-t border-gray-400 text-center">
+          </div>
+        </div>
+        <div class="content-container">
+          <div class="px-6">
+            <div class="py-10 text-center">
               <div class="flex flex-wrap justify-center">
                 <div class="w-full lg:w-9/12 px-4">  
                   <div class="relative edit-field">
                     <a name="summary"></a>
                     <h4
-                      class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                      class="text-2xl font-semibold leading-normal text-gray-800 mb-2"
                     >
                       Summary Profile
                     </h4>
@@ -265,7 +264,7 @@
                   <div class="relative">
                     <a name="detail"></a>
                     <h4
-                      class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                      class="text-2xl font-semibold leading-normal text-gray-800 mb-2"
                     >
                       Main Achievements and Expertise
                     </h4>
@@ -306,7 +305,7 @@
                   <div class="relative">
                     <a name="experience"></a>
                     <h4
-                      class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                      class="text-2xl font-semibold leading-normal text-gray-800 mb-2"
                     >
                       Commercial Experience
                     </h4>
@@ -347,7 +346,7 @@
                   <div class="relative">
                     <a name="qualifications"></a>
                     <h4
-                      class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                      class="text-2xl font-semibold leading-normal text-gray-800 mb-2"
                     >
                       Relevant Qualifications &amp; Training
                     </h4>
@@ -388,7 +387,7 @@
                   <div class="relative">
                     <a name="attributes"></a>
                     <h4
-                      class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                      class="text-2xl font-semibold leading-normal text-gray-800 mb-2"
                     >
                       Personal Attributes/Competences
                     </h4>
@@ -429,7 +428,7 @@
                   <div class="relative">
                     <a name="websites"></a>
                     <h4
-                      class="text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                      class="text-2xl font-semibold leading-normal text-gray-800 mb-2"
                     >
                       Personal Websites
                     </h4>
@@ -473,6 +472,46 @@
         </div>
       </div>
     </section>
+
+    <modal-component v-if="isModalVisible"
+      :title="modal.title"
+      :content="modal.content"
+      :action_text="modal.action_text"
+      :close_text="modal.close_text"
+      :show_modal="isModalVisible"
+      :modal_detail="modal.detail"
+      @close="closeModal()"
+      @action="actionModal"
+       >
+       <template v-slot:inputs>
+         <label class="mt-3 pt-3 font-bold placeholder-gray-600 w-full text-sm">
+           Email
+         </label>
+         <input 
+          ref="new_email"
+          v-model="new_email.email" 
+          type="text" 
+          name="new_email" 
+          placeholder="hello@leighton.com" 
+          class="my-3 px-3 py-3 placeholder-gray-600 w-full border-2 rounded text-sm shadow focus:outline-none focus:shadow-outline" 
+        />
+
+         <label class="mt-3 pt-3 font-bold placeholder-gray-600 w-full text-sm">
+           Email Confirm
+         </label>
+         <input          
+          ref="new_email_confirm"
+          v-model="new_email.email_confirm" 
+          type="text"
+          name="new_email_confirm" 
+          placeholder="hello@leighton.com" 
+          class="my-3 px-3 py-3 placeholder-gray-600 w-full border-2 rounded text-sm shadow focus:outline-none focus:shadow-outline" 
+         />
+
+         <p v-if="new_email.error" class="text-red-500 font-semibold text-s px-2 pb-2">{{ new_email.error }}</p>
+         
+       </template>
+    </modal-component>
   </div>
 </template>
 
@@ -480,6 +519,7 @@
 import Vue from 'vue'
 import { upload } from '~/services/file-upload';
 import AlertsComponent from "~/components/Alerts.vue";
+import ModalComponent from "~/components/Modal.vue";
 
 import axios from "axios";
 
@@ -489,11 +529,25 @@ export default Vue.extend({
   name: "profile-view",
   middleware: 'auth',
   components: {
-    AlertsComponent
+    AlertsComponent,
+    ModalComponent
   },
 
   data() {
       return {
+        modal: {
+          title: 'Email Address Change',
+          content: '',
+          action_text: 'Change',
+          close_text: 'Cancel',
+          detail: ''
+        },
+        new_email: {
+          email: '',
+          email_confirm: '',
+          error: ''
+        },
+        isModalVisible: false,
         email_address: '',
         talent_id: '0',
         download_link: '/download/',
@@ -501,6 +555,7 @@ export default Vue.extend({
         full_name: '',
         job_title: '',
         location: '',
+        contact_number: '',
         summary: '',
         detail: '',
         experience: '',
@@ -529,6 +584,37 @@ export default Vue.extend({
       }
   },
   methods: {
+    async showModal(data) {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    async actionModal(e) {
+      if (this.new_email.email != this.new_email.email_confirm) {
+        this.new_email.error = 'Emails do not match, please check and try again.';
+        return false;
+      } else {
+        let changeEmail = await this.$store.dispatch({
+          type: 'auth/changeEmail',
+          email: this.new_email.email
+        })
+
+        if (typeof changeEmail.message !== 'undefined') {
+          this.new_email.error = changeEmail.message;
+          return false;
+        } else {
+          await this.saveData('email', this.new_email.email);
+
+          this.email_address = this.new_email.email
+          this.isModalVisible = false
+          this.new_email.email = ''
+          this.new_email.email_confirm = ''
+          this.$parent.$parent.verifyEmailModal();
+        }
+      }
+      return true;
+    },
     fileChoice () {
     	this.$refs.fileChoice.click();
     },
@@ -580,7 +666,6 @@ export default Vue.extend({
     },
     blurField() {
       if (this.editField != '' && name != this.editField) {
-        console.log('Saving ' + this.editField+' with ' + this[this.editField]);
         this.saveData(this.editField, this[this.editField])
       }
       this.editField = '';
@@ -596,6 +681,7 @@ export default Vue.extend({
           'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
         }
         const data = { email_address: this.email_address };
+        
         data[field] = value;
         axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/update", 
           data,
@@ -612,7 +698,7 @@ export default Vue.extend({
       }
     }
   },
-  mounted() {
+  mounted() { 
     this.reset();
 
     const headers = {
@@ -646,6 +732,7 @@ export default Vue.extend({
         this.full_name = response.data.result.full_name;
         this.job_title = response.data.result.job_title;
         this.location = response.data.result.location;
+        this.contact_number = response.data.result.contact_number;
         this.summary = response.data.result.summary;
         this.detail = response.data.result.detail;
         this.experience = response.data.result.experience;
@@ -684,6 +771,10 @@ export default Vue.extend({
 import "@fortawesome/fontawesome-free/css/all.min.css";
 </script>
 <style type="text/css">
+  .profile-headline i {
+    width: 24px;
+    text-align: center;
+  }
 
   .profile-image-upload {
     width: 150px;

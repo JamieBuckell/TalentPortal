@@ -252,9 +252,6 @@ export default Vue.extend({
     SearchformComponent,
     PopularprofilesComponent
   },
-  mounted() {
-    console.log(this.$auth);
-  },
   data () {
     return {
       

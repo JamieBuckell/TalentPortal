@@ -115,14 +115,14 @@
                             <div class="relative w-full mb-3 lg:w-6/12 text-right">
                               <div class="inline-flex items-center cursor-pointer mr-3">
                                 <span class="form-checkbox text-gray-800 ml-1 w-5 h-5"></span>
-                                <button
+                                <a
                                   class="ml-2 text-sm font-semibold text-gray-700"
                                   type="cancel"
                                   @click="forgotPassword()"
                                   style="transition: all 0.15s ease 0s;"
                                 >
                                   Forgotten Password?
-                                </button>
+                                </a>
                               </div>
                             </div>
                           </div>
