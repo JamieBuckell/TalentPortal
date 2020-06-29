@@ -11,7 +11,7 @@ export const mutations = {
   set(state, user) {
     state.isAuthenticated = !!user
     state.forcePasswordChange = user && user.challengeName == 'NEW_PASSWORD_REQUIRED'
-    state.emailVerified = user.attributes.email_verified == "true"
+    state.emailVerified = user && user.attributes.email_verified == "true"
     state.user = user
   },
   setEmailVerification(state, verified) {
