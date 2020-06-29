@@ -39,7 +39,6 @@
       </div>
     </div>
 
-
     <section class="bg-gray-300">
       <div class="container mx-auto px-4">
         <div class="w-full pt-2">

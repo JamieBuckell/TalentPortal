@@ -21,17 +21,15 @@
         <div class="container relative mx-auto">
           <div class="items-center flex flex-wrap">
             <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center">
-              <div class="pr-12">
-                <h1 class="text-white font-semibold text-5xl">
-                  Your perfect candidate is waiting right here.
-                </h1>
-                <p class="my-4 text-lg text-gray-300">
-                  Use our search below to find the types of roles you're looking to 
-                  fill and we'll present you with the top talent in your chosen fields.
-                </p>
-                <div v-if="$auth.isAuthenticated" class="pt-4">
-                  <searchform-component></searchform-component>
-                </div>
+              <h1>
+                Your perfect candidate is waiting right here.
+              </h1>
+              <p class="my-4 text-lg text-gray-300">
+                Use our search below to find the types of roles you're looking to 
+                fill and we'll present you with the top talent in your chosen fields.
+              </p>
+              <div v-if="$auth.isAuthenticated" class="pt-4">
+                <searchform-component></searchform-component>
               </div>
             </div>
           </div>

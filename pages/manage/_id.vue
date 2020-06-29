@@ -40,173 +40,171 @@
     <section class="relative py-16 bg-gray-800">
       <div class="container mx-auto px-4" @click="removeFocus()">
         <div class="content-container -mt-64">
-          <div class="px-6">
-            <div class="flex flex-wrap">
-              <div class="w-full md:w-4/12 lg:w-3/12 px-4"> 
-                <div class="relative">
-                  <div class="profile-image" :style="{ backgroundImage: `url(${profile_image})` }">
-                    &nbsp;
-                  </div>
+          <div class="flex flex-wrap">
+            <div class="w-full md:w-4/12 lg:w-3/12"> 
+              <div class="relative">
+                <div class="profile-image" :style="{ backgroundImage: `url(${profile_image})` }">
+                  &nbsp;
                 </div>
               </div>
+            </div>
 
-              <div class="w-full md:w-8/12 lg:w-9/12 pt-6 ">
-                <div class="flex flex-wrap">
-                  <div class="w-full z-40">
-                    <div class="flex whitespace-no-wrap float-right">
-                      <button
-                        class="bg-purple-800 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
-                        @click="showModal(email_address)"
-                        style="transition: all 0.15s ease 0s;"
-                      >
-                        <i class="fas fa-envelope mr-2 text-lg text-gray-500"></i>
-                        Change Email
-                      </button>
-                      <a
-                        class="bg-gray-800 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
-                        href="/"
-                        style="transition: all 0.15s ease 0s;"
-                      >
-                        <i class="fas fa-arrow-left mr-2 text-lg text-gray-500"></i>
-                        Back
-                      </a>
-                    </div>
-
+            <div class="w-full md:w-8/12 lg:w-9/12 py-6 px-6">
+              <div class="flex flex-wrap text-center lg:text-left sm:mb-6">
+                <div class="w-full z-40">
+                  <div class="flex lg:whitespace-no-wrap lg:float-right">
+                    <button
+                      class="btn btn-purple flex-1 lg:flex-none"
+                      @click="showModal(email_address)"
+                      style="transition: all 0.15s ease 0s;"
+                    >
+                      <i class="fas fa-envelope mr-2 text-lg text-gray-500"></i>
+                      Change Email
+                    </button>
+                    <a
+                      class="btn btn-gray flex-1 lg:flex-none"
+                      href="/"
+                      style="transition: all 0.15s ease 0s;"
+                    >
+                      <i class="fas fa-arrow-left mr-2 text-lg text-gray-500"></i>
+                      Back
+                    </a>
                   </div>
-                  <div class="w-full">
-                    <div class="flex flex-wrap -mt-12 profile-headline">
-                      <div class="w-full px-4">
-                        <div class="relative">
-                          <span class="block text-4xl font-semibold leading-normal text-gray-800 edit-field">
-                          <span class="field-value" v-show="!showField('full_name')" v-on:click.stop.prevent="removeFocus" @click="focusField('full_name')">
-                            {{ full_name }}<span v-if="!full_name" class="text-gray-500">Full Name</span>
-                          </span>
-                          <input
-                            ref="full_name"
-                            v-model="full_name"
-                            v-show="showField('full_name')"
-                            type="text"
-                            placeholder="Full Name"
-                            class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12"
-                            @focus="focusField('full_name')"
-                            @blur="blurField"
-                          >
+
+                </div>
+                <div class="w-full">
+                  <div class="flex flex-wrap lg:-mt-12 profile-headline">
+                    <div class="w-full px-4">
+                      <div class="relative">
+                        <span class="block text-4xl font-semibold leading-normal text-gray-800 edit-field">
+                        <span class="field-value" v-show="!showField('full_name')" v-on:click.stop.prevent="removeFocus" @click="focusField('full_name')">
+                          {{ full_name }}<span v-if="!full_name" class="text-gray-500">Full Name</span>
                         </span>
-                        <alerts-component 
-                          v-if="pending_changes.full_name"
-                          :alert_type='warning_alert.alert_type' 
-                          :title='warning_alert.title'
-                          :message='warning_alert.message'
-                        />
-                        <alerts-component 
-                          v-if="rejected_changes.full_name"
-                          :detail='rejected_changes.full_name'
-                          :alert_type='error_alert.alert_type' 
-                          :title='error_alert.title'
-                          :message='error_alert.message'
-                        />
-                        </div>
-                      </div>
-                      <div class="w-full px-4">
-                        <span class="block text-2xl font-semibold leading-normal text-gray-800 mb-2 edit-field">
-                          <span class="field-value" v-show="!showField('job_title')" v-on:click.stop.prevent="removeFocus" @click="focusField('job_title')">
-                            {{ job_title }}<span v-if="!job_title" class="text-gray-500">Job Title</span>
-                          </span>
-                          <input
-                          ref="job_title"
-                          v-model="job_title" 
-                          v-show="showField('job_title')" 
-                          type="text" 
-                          placeholder="Job Title"
-                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
-                          @focus="focusField('job_title')" 
+                        <input
+                          ref="full_name"
+                          v-model="full_name"
+                          v-show="showField('full_name')"
+                          type="text"
+                          placeholder="Full Name"
+                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12"
+                          @focus="focusField('full_name')"
                           @blur="blurField"
-                          >
-                        </span>
-                        <alerts-component 
-                        v-if="pending_changes.job_title"
+                        >
+                      </span>
+                      <alerts-component 
+                        v-if="pending_changes.full_name"
                         :alert_type='warning_alert.alert_type' 
                         :title='warning_alert.title'
                         :message='warning_alert.message'
-                        />
-                        <alerts-component 
-                        v-if="rejected_changes.job_title"
-                        :detail='rejected_changes.job_title'
+                      />
+                      <alerts-component 
+                        v-if="rejected_changes.full_name"
+                        :detail='rejected_changes.full_name'
                         :alert_type='error_alert.alert_type' 
                         :title='error_alert.title'
                         :message='error_alert.message'
-                        />
+                      />
                       </div>
-                      <div class="w-full px-4">
-                        <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
-                          <i class="fas fa-map-marker-alt text-lg text-gray-500"></i>
-                          <span class="field-value" v-show="!showField('location')" v-on:click.stop.prevent="removeFocus" @click="focusField('location')">
-                            {{ location }}<span v-if="!location" class="text-gray-500">Houghton-le-Spring, Sunderland</span>
-                          </span>
-                          <input
-                          ref="location"
-                          v-model="location" 
-                          v-show="showField('location')"
-                          type="text" 
-                          placeholder="Houghton-le-Spring, Sunderland"
-                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
-                          @focus="focusField('location')" 
-                          @blur="blurField"
-                          >
+                    </div>
+                    <div class="w-full px-4">
+                      <span class="block text-2xl font-semibold leading-normal text-gray-800 mb-2 edit-field">
+                        <span class="field-value" v-show="!showField('job_title')" v-on:click.stop.prevent="removeFocus" @click="focusField('job_title')">
+                          {{ job_title }}<span v-if="!job_title" class="text-gray-500">Job Title</span>
                         </span>
-                        <alerts-component 
-                        v-if="pending_changes.location"
-                        :alert_type='warning_alert.alert_type' 
-                        :title='warning_alert.title'
-                        :message='warning_alert.message'
-                        />
-                        <alerts-component 
-                        v-if="rejected_changes.location"
-                        :detail='rejected_changes.location'
-                        :alert_type='error_alert.alert_type' 
-                        :title='error_alert.title'
-                        :message='error_alert.message'
-                        />
-                      </div>
-                      <div class="w-full px-4">
-                        <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
-                          <i class="fas fa-phone-square text-lg text-gray-500"></i>
-                          <span class="field-value" v-show="!showField('contact_number')" v-on:click.stop.prevent="removeFocus" @click="focusField('contact_number')">
-                            {{ contact_number }}<span v-if="!contact_number" class="text-gray-500">0191 305 5140</span>
-                          </span>
-                          <input
-                          ref="contact_number"
-                          v-model="contact_number" 
-                          v-show="showField('contact_number')"
-                          type="text" 
-                          placeholder="0191 305 5140"
-                          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
-                          @focus="focusField('contact_number')" 
-                          @blur="blurField"
-                          >
+                        <input
+                        ref="job_title"
+                        v-model="job_title" 
+                        v-show="showField('job_title')" 
+                        type="text" 
+                        placeholder="Job Title"
+                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
+                        @focus="focusField('job_title')" 
+                        @blur="blurField"
+                        >
+                      </span>
+                      <alerts-component 
+                      v-if="pending_changes.job_title"
+                      :alert_type='warning_alert.alert_type' 
+                      :title='warning_alert.title'
+                      :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                      v-if="rejected_changes.job_title"
+                      :detail='rejected_changes.job_title'
+                      :alert_type='error_alert.alert_type' 
+                      :title='error_alert.title'
+                      :message='error_alert.message'
+                      />
+                    </div>
+                    <div class="w-full px-4">
+                      <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
+                        <i class="fas fa-map-marker-alt text-lg text-gray-500"></i>
+                        <span class="field-value" v-show="!showField('location')" v-on:click.stop.prevent="removeFocus" @click="focusField('location')">
+                          {{ location }}<span v-if="!location" class="text-gray-500">Houghton-le-Spring, Sunderland</span>
                         </span>
-                        <alerts-component 
-                        v-if="pending_changes.contact_number"
-                        :alert_type='warning_alert.alert_type' 
-                        :title='warning_alert.title'
-                        :message='warning_alert.message'
-                        />
-                        <alerts-component 
-                        v-if="rejected_changes.contact_number"
-                        :detail='rejected_changes.contact_number'
-                        :alert_type='error_alert.alert_type' 
-                        :title='error_alert.title'
-                        :message='error_alert.message'
-                        />
-                      </div>
-                      <div class="w-full px-4">
-                        <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
-                          <i class="fas fa-envelope text-lg text-gray-500"></i>
-                          <span class="field-value">
-                            {{ email_address }}<span v-if="!email_address" class="text-gray-500">hello@leighton.com</span>
-                          </span>
+                        <input
+                        ref="location"
+                        v-model="location" 
+                        v-show="showField('location')"
+                        type="text" 
+                        placeholder="Houghton-le-Spring, Sunderland"
+                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
+                        @focus="focusField('location')" 
+                        @blur="blurField"
+                        >
+                      </span>
+                      <alerts-component 
+                      v-if="pending_changes.location"
+                      :alert_type='warning_alert.alert_type' 
+                      :title='warning_alert.title'
+                      :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                      v-if="rejected_changes.location"
+                      :detail='rejected_changes.location'
+                      :alert_type='error_alert.alert_type' 
+                      :title='error_alert.title'
+                      :message='error_alert.message'
+                      />
+                    </div>
+                    <div class="w-full px-4">
+                      <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
+                        <i class="fas fa-phone-square text-lg text-gray-500"></i>
+                        <span class="field-value" v-show="!showField('contact_number')" v-on:click.stop.prevent="removeFocus" @click="focusField('contact_number')">
+                          {{ contact_number }}<span v-if="!contact_number" class="text-gray-500">0191 305 5140</span>
                         </span>
-                      </div>
+                        <input
+                        ref="contact_number"
+                        v-model="contact_number" 
+                        v-show="showField('contact_number')"
+                        type="text" 
+                        placeholder="0191 305 5140"
+                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12" 
+                        @focus="focusField('contact_number')" 
+                        @blur="blurField"
+                        >
+                      </span>
+                      <alerts-component 
+                      v-if="pending_changes.contact_number"
+                      :alert_type='warning_alert.alert_type' 
+                      :title='warning_alert.title'
+                      :message='warning_alert.message'
+                      />
+                      <alerts-component 
+                      v-if="rejected_changes.contact_number"
+                      :detail='rejected_changes.contact_number'
+                      :alert_type='error_alert.alert_type' 
+                      :title='error_alert.title'
+                      :message='error_alert.message'
+                      />
+                    </div>
+                    <div class="w-full px-4">
+                      <span class="text-sm leading-normal mt-0 mb-2 text-gray-800 font-bold uppercase edit-field">
+                        <i class="fas fa-envelope text-lg text-gray-500"></i>
+                        <span class="field-value">
+                          {{ email_address }}<span v-if="!email_address" class="text-gray-500">hello@leighton.com</span>
+                        </span>
+                      </span>
                     </div>
                   </div>
                 </div>

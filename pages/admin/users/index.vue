@@ -38,12 +38,22 @@
         </svg>
       </div>
     </div>
+
+    <section class="bg-gray-300">
+      <div class="container mx-auto px-4">
+        <div class="w-full pt-2">
+          <a href="/admin" class="font-semibold">Admin</a> &gt;
+          <a href="/admin/users" class="">Users</a>
+        </div>
+      </div>
+    </section>
+
     <section class="pb-20 bg-gray-300">
       <div class="container mx-auto px-4">
         <div class="py-8">
           <div>
             <h2 class="text-2xl text-grey-700 font-semibold leading-tight">
-              Roles
+              Users
             </h2>
           </div>
           <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">

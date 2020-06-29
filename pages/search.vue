@@ -24,15 +24,13 @@
       <div class="container relative mx-auto">
         <div class="items-center flex flex-wrap">
           <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center">
-            <div class="pr-12">
-              <h1 class="text-white font-semibold text-5xl">
-                Search Results.
-              </h1>
-            </div>
+            <h1>
+              Search Results.
+            </h1>
           </div>
         </div>
 
-        <div v-if="$auth.isAuthenticated" class="mt-4">
+        <div v-if="$auth.isAuthenticated" class="mt-4 px-6">
           <searchform-component></searchform-component>
         </div>
       </div>

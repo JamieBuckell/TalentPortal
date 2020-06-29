@@ -52,8 +52,8 @@
         <div class="flex flex-wrap">
 
 
-          <div class="lg:pt-6 pt-6 w-full xl:w-2/12 lg:w-3/12 md:w-4/12 pr-4 text-center">
-            <a href="/admin/users/" class="relative flex flex-col min-w-0 break-words bg-white md:w-full mb-8 shadow-lg rounded-lg">
+          <div class="lg:pt-6 pt-6 w-full xl:w-2/12 lg:w-3/12 md:w-4/12 px-4 text-center">
+            <a href="/admin/users/" class="relative flex flex-col min-w-0 break-words bg-white md:w-full shadow-lg rounded-lg">
               <div class="px-4 py-5 flex-auto">
                 <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
                   <i class="fas fa-users"></i>
@@ -65,7 +65,7 @@
 
 
           <div class="lg:pt-6 pt-6 w-full xl:w-2/12 lg:w-3/12 md:w-4/12 px-4 text-center">
-            <a href="/admin/authorisations/" class="relative flex flex-col min-w-0 break-words bg-white md:w-full mb-8 shadow-lg rounded-lg">
+            <a href="/admin/authorisations/" class="relative flex flex-col min-w-0 break-words bg-white md:w-full shadow-lg rounded-lg">
               <div class="px-4 py-5 flex-auto">
                 <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-purple-700">
                   <i class="fas fa-tasks"></i>

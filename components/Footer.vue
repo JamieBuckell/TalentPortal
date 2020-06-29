@@ -5,8 +5,8 @@
       <div
         class="flex flex-wrap items-center md:justify-between justify-center"
       >
-        <div class="w-full md:w-4/12 px-4">
-          <div class="text-sm text-white font-semibold py-1">
+        <div class="w-full md:w-6/12 px-4 order-2 md:order-1">
+          <div class="text-sm text-white font-semibold py-1 text-center md:text-left">
             Copyright © {{date}}
             <a
               href="https://www.leighton.com"
@@ -15,13 +15,14 @@
             >
           </div>
         </div>
-        <div class="w-full md:w-8/12 px-4">
+        <div class="w-full md:w-6/12 px-4 order-1 md:order-2">
           <ul
-            class="flex flex-wrap list-none md:justify-end  justify-center"
+            class="flex flex-wrap list-none md:justify-end justify-center"
           >
             <li>
               <a
                 href="https://www.leighton.com/about-us/"
+                target="_blank"
                 class="text-white hover:text-gray-400 text-sm font-semibold block py-1 px-3"
                 >About Us</a
               >
