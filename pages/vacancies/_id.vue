@@ -164,9 +164,6 @@ export default Vue.extend({
 
         for (let dataKey in response.data.result) {
           if (typeof this.vacancy_data[dataKey] != 'undefined' && response.data.result[dataKey] != '') {
-            if (dataKey == 'location') {
-              response.data.result[dataKey] = response.data.result[dataKey].replace(/,/g, '<br />');
-            }
             this.vacancy_data[dataKey] = response.data.result[dataKey];
           }
         }

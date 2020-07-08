@@ -107,9 +107,6 @@
                   ref="editor"
                   v-model="vacancy_data.summary"
                   :options="editorOption"
-                  @blur="onEditorBlur($event)"
-                  @focus="onEditorFocus($event)"
-                  @ready="onEditorReady($event)"
                   class="bg-white rounded shadow my-2 text-sm"
                 />                  
               </client-only>
@@ -124,9 +121,6 @@
                   ref="editor"
                   v-model="vacancy_data.requirements"
                   :options="editorOption"
-                  @blur="onEditorBlur($event)"
-                  @focus="onEditorFocus($event)"
-                  @ready="onEditorReady($event)"
                   class="bg-white rounded shadow my-2 text-sm"
                 />                  
               </client-only>
@@ -152,6 +146,22 @@ import "leighton-form";
 
 import axios from "axios";
 
+const vacancyData: any = {
+  vacancy_id: '',
+  job_title: '',
+  logo: 'https://sciences.ucf.edu/psychology/wp-content/uploads/sites/63/2019/09/No-Image-Available.png',
+  internal_contact: { name: '' },
+  organisation: '',
+  industry: '',
+  location: '',
+  location_basic: '',
+  hours: '',
+  rate: '',
+  summary: '',
+  requirements: '',
+  application_link: '',
+}
+
 export default Vue.extend({
   name: "vacancies-view",
   middleware: 'auth',
@@ -164,24 +174,8 @@ export default Vue.extend({
         page_title: '',
         page_errors: [],
         logo_img: document.createElement('img'),
-        logo_form: document.createElement('leighton-form'),
-        logo_container: document.createElement('div'),
         cssUrl: '/formbuilder.css',
-        vacancy_data: {
-          vacancy_id: '',
-          job_title: '',
-          logo: 'https://sciences.ucf.edu/psychology/wp-content/uploads/sites/63/2019/09/No-Image-Available.png',//require('~/assets/img/Silhouette.png'),
-          internal_contact: { name: '' },
-          organisation: '',
-          industry: '',
-          location: '',
-          location_basic: '',
-          hours: '',
-          rate: '',
-          summary: '',
-          requirements: '',
-          application_link: '',
-        },
+        vacancy_data: vacancyData,
         validity: {valid: false},
         fields: [
           {
@@ -194,13 +188,14 @@ export default Vue.extend({
             required: false,
             onFilesSelected: (files) => {
               const reader = new FileReader();
-              reader.onload = readerEvent => {
-                this.vacancy_data.logo = readerEvent.target.result;
+
+              reader.onload = (e: any) => {
+                vacancyData.logo = e.target.result
               };
+
               for (var i = 0; i < files.length; i++) {
                 reader.readAsDataURL(files[i]);
               }
-
             }
           },
           {
@@ -375,9 +370,6 @@ export default Vue.extend({
 
           for (let dataKey in response.data.result) {
             if (typeof this.vacancy_data[dataKey] != 'undefined' && response.data.result[dataKey] != '') {
-              if (dataKey == 'location') {
-                response.data.result[dataKey] = response.data.result[dataKey].replace(/,/g, '<br />');
-              }
               this.vacancy_data[dataKey] = response.data.result[dataKey];
             }
           }
@@ -455,12 +447,11 @@ export default Vue.extend({
         }
       )
       .then(response => { 
-        console.log(response);
         this.$parent.$parent.hideOverlay();
         this.$router.push('/vacancies')
       })
       .catch(error => {
-        console.log('error jamie', error)
+        console.log('error', error)
         this.$parent.$parent.hideOverlay();
       });
     },
@@ -479,23 +470,13 @@ export default Vue.extend({
         }
       )
       .then(response => { 
-        console.log(response);
         this.$parent.$parent.hideOverlay();
       })
       .catch(error => {
-        console.log('error jamie', error)
+        console.log('jamie', error)
         this.$parent.$parent.hideOverlay();
       });
       /* */
-    },
-    onEditorBlur(editor) {
-      console.log('editor blur!', editor)
-    },
-    onEditorFocus(editor) {
-      console.log('editor focus!', editor)
-    },
-    onEditorReady(editor) {
-      console.log('editor ready!', editor)
     }
   },
   filters: {
