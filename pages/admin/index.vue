@@ -79,37 +79,6 @@
         </div>
       </div>
     </section>
-
-    <section class="relative block bg-gray-900">
-      <div
-        class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
-        style="height: 80px; transform: translateZ(0px);"
-      >
-        <svg
-          class="absolute bottom-0 overflow-hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-          version="1.1"
-          viewBox="0 0 2560 100"
-          x="0"
-          y="0"
-        >
-          <polygon
-            class="text-gray-900 fill-current"
-            points="2560 0 2560 100 0 100"
-          ></polygon>
-        </svg>
-      </div>
-      <div class="container mx-auto px-4">
-        <div class="flex flex-wrap text-center justify-center">
-          <div class="w-full lg:w-6/12 px-4">
-            <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
-              &nbsp;
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -133,7 +102,6 @@ export default Vue.extend({
   },
   data () {
     return {
-      isAdmin: false,
       fields: FieldsDef,
       css: {
         table: {
@@ -165,13 +133,9 @@ export default Vue.extend({
   },
   mounted() {
     const userGroups = (this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"]) ? this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"] : [];
-    if (userGroups.indexOf("SuperAdmin") != -1) {
-      this.isAdmin = true;
-    } else if (userGroups.indexOf("TalentAdmin") != -1) {
-      this.isAdmin = true;
-    }
-    if (!this.isAdmin) {
-      this.$router.push('/')
+
+    if (!this.$auth.isAdmin) {
+      throw new Error("This page could not be found")
     }
   },
   methods: {

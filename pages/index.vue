@@ -28,7 +28,7 @@
                 Use our search below to find the types of roles you're looking to 
                 fill and we'll present you with the top talent in your chosen fields.
               </p>
-              <div v-if="$auth.isAuthenticated" class="pt-4">
+              <div v-if="$auth.canViewTalent" class="pt-4">
                 <searchform-component></searchform-component>
               </div>
             </div>
@@ -117,7 +117,7 @@
         </div>
       </section>
 
-      <section class="relative py-20 pt-20 pb-48" v-if="this.$auth.user">
+      <section class="relative py-20 pt-20 pb-48" v-if="$auth.canViewTalent">
         <div
           class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
           style="height: 80px; transform: translateZ(0px);"

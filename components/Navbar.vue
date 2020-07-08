@@ -9,7 +9,7 @@
         class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
       >
         <a
-          class="text-sm font-bold leading-relaxed inline-block mx-4 py-2 whitespace-no-wrap uppercase text-white"
+          class="text-sm font-bold leading-relaxed inline-block mx-4 py-2 uppercase text-white"
           href="/"
           >Leighton Talent Portal</a
         ><button
@@ -33,6 +33,15 @@
               style="transition: all 0.15s ease 0s;"
             >
               <i class="fas fa-user"></i> Admin
+            </a>
+          </li>
+          <li v-if="$auth.isAuthenticated" class="flex items-center">
+            <a
+              class="nav-link"
+              href="/vacancies"
+              style="transition: all 0.15s ease 0s;"
+            >
+              <i class="fas fa-building"></i> Vacancies
             </a>
           </li>
           <li v-if="$auth.isAuthenticated" class="flex items-center">

@@ -177,6 +177,10 @@ export default Vue.extend({
   },
 
   mounted() {
+    if (!this.$auth.canViewTalent) {
+      throw new Error("This page could not be found")
+    }
+
     if (typeof this.$route.query.term != 'undefined') {
       const headers = {
         'Content-Type': 'application/json',

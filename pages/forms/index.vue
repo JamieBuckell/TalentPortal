@@ -56,7 +56,7 @@ import "leighton-form"; // our form component, imported from npm
 export default {
   data: function() {
     return {
-      cssUrl: require('~/assets/css/formbuilder.css'), // this gives us some basic css to work with
+      cssUrl: '/formbuilder.css', // this gives us some basic css to work with
       fields: [ // fields the form is built from, including validation rules
         {
           field: "firstName",

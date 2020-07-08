@@ -35,6 +35,9 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    'assets/css/talent.css',
+    'quill/dist/quill.core.css',
+    'quill/dist/quill.snow.css',
   ],
   /*
   ** Plugins to load before mounting the App
@@ -42,7 +45,8 @@ module.exports = {
   plugins: [
     { src: '~/plugins/amplify.js', mode: 'client' }, 
     { src: '~/plugins/auth' }, 
-    { src: '~/plugins/vue-table', ssr: false }
+    { src: '~/plugins/vue-table', ssr: false },
+    { src: '~plugins/quill', ssr: false }
   ],
   /*
   ** Server Middleware
