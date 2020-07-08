@@ -17,11 +17,11 @@
                     <span class="block"> {{ vacancy.job_title }}</span>
                 </div>
             </li>
-            <li class="px-6 pb-4 whitespace-no-wrap w-full flex flex-wrap">
+            <li v-if="vacancy.location || vacancy.location_basic" class="px-6 pb-4 whitespace-no-wrap w-full flex flex-wrap">
                 <i class="fa fa-map-marked-alt w-6 pt-1 text-purple-700"></i>
                 <div class="w-auto">
                     <span class="font-semibold block">Location:</span>
-                    <span class="block" v-if="vacancy.location" v-html="vacancy.location"></span>
+                    <span class="block" v-if="vacancy.location" v-html="formatLocation(vacancy.location)"></span>
                     <span class="block" v-else v-html="vacancy.location_basic"></span>
                 </div>
             </li>
@@ -55,18 +55,13 @@ export default {
     }
   },
   props: ['vacancy'],
-  mounted() {
-    const userGroups = (this.$auth.isAuthenticated && this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"]) ? this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"] : [];
-    if (userGroups.indexOf("SuperAdmin") != -1) {
-      this.isAdmin = true;
-    } else if (userGroups.indexOf("TalentAdmin") != -1) {
-      this.isAdmin = true;
-    }
-  },
   methods: {
     toggleNavbar: function(){
       this.showMenu = !this.showMenu;
-    }
+    },
+    formatLocation: function(location) {
+      return location.replace(/,/g, '<br />');
+    },
   }
 }
 </script>
