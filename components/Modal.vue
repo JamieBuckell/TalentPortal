@@ -1,16 +1,16 @@
 <script>
   export default {
     name: 'modal',
-    props: ['title', 'content', 'action_text', 'close_text', 'modal_detail', 'secondary_action_text'],
+    props: ['title', 'content', 'action_text', 'close_text', 'modal_detail', 'secondary_action_text', 'action_data'],
     methods: {
       close() {
         this.$emit('close');
       },
       action() {
-        this.$emit('action', this.$slots.inputs);
+        this.$emit('action', this.$slots.inputs, this.action_data);
       },
       secondary_action() {
-        this.$emit('secondary_action', this.$slots.inputs);
+        this.$emit('secondary_action', this.$slots.inputs, this.action_data);
       },
     },
   };

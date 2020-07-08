@@ -67,7 +67,7 @@
         </div>
         <div class="py-8 flex flex-wrap">
           <div class="relative w-full pr-6">
-            <a v-for="(vacancy, i) in data" :key="i" :href="'/vacancies/' + vacancy.id" class="job-listing flex items-center">
+            <a v-for="(vacancy, i) in data" :key="i" :href="'/vacancies/' + vacancy.id" class="job-listing flex items-center" ref="vacancies" :data-vacancy-id="vacancy.id">
               <div class="w-24">
                 <img v-if="vacancy.logo" :src="vacancy.logo" 
                      :alt="vacancy.organisation + ': ' + vacancy.job_title"
@@ -154,6 +154,11 @@ import Vue from "vue";
 
 import axios from "axios";
 
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': ''
+}
+
 export default Vue.extend({
   name: "vacancies-list",
   middleware: "auth",
@@ -168,10 +173,8 @@ export default Vue.extend({
   },
 
   mounted() {
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
-    }
+    headers['Authorization'] = this.$auth.user.signInUserSession.idToken.jwtToken;
+
     var data = { "viewType" : 'basic' };
     axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/vacancies", 
       data,
@@ -190,7 +193,44 @@ export default Vue.extend({
       this.$router.push('/vacancies/manage/'+vacancy.id+'/');
     },
     deleteVacancy(vacancy) {
-      console.log(vacancy);
+        this.$parent.$parent.modal.title = 'Remove Vacancy';
+        this.$parent.$parent.modal.content = "Are you sure you want to remove the Vacancy:<br /><strong>" + vacancy.organisation + '</strong> - <strong>' + vacancy.job_title + '</strong>?';
+        this.$parent.$parent.modal.action_text = "Yes, i'm sure";
+        this.$parent.$parent.modal.action_data = vacancy;
+        this.$parent.$parent.modal.action_method = this.doVacancyDelete;
+        this.$parent.$parent.modal.secondary_action_text = "";
+        this.$parent.$parent.modal.close_text = 'Cancel';
+        this.$parent.$parent.modal.detail = "";
+        this.$parent.$parent.modal.type = 'delete';
+
+        this.$parent.$parent.isModalVisible = true;
+    },
+    doVacancyDelete(e, vacancy) {
+      this.$parent.$parent.closeModal();
+      this.$parent.$parent.showOverlay();
+      
+      let deleteData = {vacancy_id: vacancy.id, status: 0};
+      axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/vacancies/update", 
+        deleteData,
+        {
+          headers: headers
+        }
+      )
+      .then(response => { 
+        var updatedData = {}
+        for (var key in this.data) {
+          if (this.data[key].id != vacancy.id) {
+            updatedData[key] = this.data[key]
+          }
+        }
+        this.data = updatedData;
+
+        this.$parent.$parent.hideOverlay();
+      })
+      .catch(error => {
+        console.log(error)
+        this.$parent.$parent.hideOverlay();
+      });
     },
     dataManager(sortOrder) {
       if (this.data.length < 1) return;

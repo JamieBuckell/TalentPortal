@@ -43,30 +43,32 @@
       :title="modal.title"
       :content="modal.content"
       :action_text="modal.action_text"
+      :action_data="modal.action_data"
       :secondary_action_text="modal.secondary_action_text"
       :close_text="modal.close_text"
       :show_modal="isModalVisible"
       :modal_detail="modal.detail"
       @close="closeModal()"
-      @action="actionModal"
+      @action="modal.action_method"
       @secondary_action="secondaryActionModal"
        >
        <template v-slot:inputs>
-         <label class="mt-3 pt-3 font-bold placeholder-gray-600 w-full text-sm">
-           Email Verification Code
-         </label>
-         <p class="w-full text-sm">You have been sent a verification code via email. Provide this code in the box below.</p>
-         <input 
-          ref="verification_code"
-          v-model="email_verification.code" 
-          type="text" 
-          name="verification_code" 
-          placeholder="123456" 
-          class="my-3 px-3 py-3 placeholder-gray-600 w-full border-2 rounded text-sm shadow focus:outline-none focus:shadow-outline" 
-        />
+         <div v-if="showVerificationCode">
+          <label class="mt-3 pt-3 font-bold placeholder-gray-600 w-full text-sm">
+            Email Verification Code
+          </label>
+          <p class="w-full text-sm">You have been sent a verification code via email. Provide this code in the box below.</p>
+          <input 
+            ref="verification_code"
+            v-model="email_verification.code" 
+            type="text" 
+            name="verification_code" 
+            placeholder="123456" 
+            class="my-3 px-3 py-3 placeholder-gray-600 w-full border-2 rounded text-sm shadow focus:outline-none focus:shadow-outline" 
+          />
 
-         <p v-if="email_verification.error" class="text-red-500 font-semibold text-s px-2 pb-2">{{ email_verification.error }}</p>
-         
+          <p v-if="email_verification.error" class="text-red-500 font-semibold text-s px-2 pb-2">{{ email_verification.error }}</p>
+         </div>
        </template>
     </modal-component>
 
@@ -96,10 +98,13 @@ export default Vue.extend({
 
   data() {
     return {
+      showVerificationCode: false,
       modal: {
         title: 'Email Address Verification',
         content: '',
         action_text: 'Verify',
+        action_data: {},
+        action_method: this.actionModal,
         secondary_action_text: 'Resend Code',
         close_text: 'Cancel',
         detail: ''
@@ -116,6 +121,7 @@ export default Vue.extend({
   methods: {
     verifyEmailModal() {
       this.isModalVisible = true;
+      this.showVerificationCode = true;
     },
     closeModal() {
       this.isModalVisible = false;
