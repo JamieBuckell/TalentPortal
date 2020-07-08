@@ -69,6 +69,14 @@
          
        </template>
     </modal-component>
+
+    <div v-if="isOverlayVisible" class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
+      <span class="text-purple-800 opacity-75 top-1/2 my-0 mx-auto block relative w-0 h-0" style="
+        top: 50%;
+    ">
+        <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -100,7 +108,8 @@ export default Vue.extend({
         code: '',
         error: ''
       },
-      isModalVisible: false
+      isModalVisible: false,
+      isOverlayVisible: false
     }
   },
 
@@ -134,6 +143,12 @@ export default Vue.extend({
       } else {
         this.isModalVisible = false;
       }
+    },
+    showOverlay() {
+      this.isOverlayVisible = true;
+    },
+    hideOverlay() {
+      this.isOverlayVisible = false;
     }
   }
 })
@@ -157,34 +172,5 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
 }
 </style>

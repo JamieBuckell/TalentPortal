@@ -1,45 +1,81 @@
-@import url(https://fonts.googleapis.com/css?family=Inter);
-
+/* Colours */
+/* Colour Identity */
+/* Grid */
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+/* Form Elements */
+/* Buttons */
+/* Radios */
+/* Multi-Select specific */
+/* Button panels */
+/* About spooky skeletons */
+/* Picker Styles */
+/* Tables */
+/* Actual styles, do not edit below this line */
 body {
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.2rem;
-  color: #1C1C1C; }
+  color: #4a5568; }
 
 a {
   color: #dc582a;
-  font-family: "Inter", sans-serif; }
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
 
 /* Typography */
 h1 {
-  font-size: 3rem;
-  font-family: "Inter", sans-serif; }
+  color: #4a5568;
+  font-size: 1.5rem;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  margin: 0; }
 
 h2 {
-  font-size: 2.125rem;
-  font-family: "Inter", sans-serif; }
+  font-size: 1.85938rem;
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
 
 h3 {
-  font-size: 1.5rem;
-  font-family: "Inter", sans-serif; }
+  font-size: 1.3125rem;
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
 
 h4 {
-  font-size: 1rem;
-  font-family: "Inter", sans-serif; }
+  font-size: 0.875rem;
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
 
 h5 {
-  font-size: 0.83rem;
-  font-family: "Inter", sans-serif; }
+  font-size: 0.72625rem;
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
 
 h6 {
-  font-size: 0.67rem;
-  font-family: "Inter", sans-serif; }
+  font-size: 0.58625rem;
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
+
+/* Place Holder CSS */
+::-webkit-input-placeholder {
+  opacity: 0.5;
+  -webkit-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+:-moz-placeholder {
+  opacity: 0.5;
+  -moz-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+::-moz-placeholder {
+  opacity: 0.5;
+  -moz-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+:-ms-input-placeholder {  
+  opacity: 0.5;
+  -ms-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
 
 /* Form elements */
 .form-element {
   width: 100%;
-  font-family: "Inter", sans-serif;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
   margin: 0.2rem 0 0.8rem 0;
   /* The slider itself */
   /* Mouse-over effects */
@@ -49,27 +85,28 @@ h6 {
   .form-element .hint {
     margin: 0 0 0.2rem 0.4rem;
     color: #717171;
-    font-size: 1rem;
+    font-size: 0.875rem;
     display: block; }
   .form-element .errors {
     margin: 0.4rem 0 0 0.4rem; }
     .form-element .errors span {
       display: block;
       color: #b00020;
-      font-size: 0.9rem;
+      font-size: 0.7875rem;
       line-height: 1.2rem; }
   .form-element .label {
     width: 100%;
-    font-size: 1.1rem;
-    color: #1C1C1C;
-    font-weight: 900;
+    font-size: 0.75rem;
+    color: #4a5568;
+    font-weight: 700;
     margin: 0 0 0.2rem 0;
+    text-transform:uppercase;
     display: block; }
   .form-element .required {
     color: #b00020; }
   .form-element .optional {
     color: #717171;
-    font-size: 0.88rem; }
+    font-size: 0.77rem; }
   .form-element [type=range] {
     -webkit-appearance: none;
     /* Override default CSS styles */
@@ -119,7 +156,7 @@ h6 {
     opacity: 0.8;
     transition: transform .5s ease; }
   .form-element .checkdio-group-images [type=radio]:checked + img {
-    outline: 2px solid #da1884;
+    outline: 0 solid #da1884;
     opacity: 1;
     transform: scale(1.05);
     z-index: 999; }
@@ -136,7 +173,7 @@ h6 {
     opacity: 0.8;
     transition: transform .5s ease; }
   .form-element .checkdio-group-images [type=checkbox]:checked + img {
-    outline: 2px solid #da1884;
+    outline: 0 solid #da1884;
     opacity: 1;
     transform: scale(1.05);
     z-index: 999; }
@@ -168,14 +205,14 @@ h6 {
     vertical-align: middle;
     width: 100%;
     max-width: 100%;
-    border-width: 1px;
+    border-width: 0;
     border-style: solid;
     border-color: #AAAAAA;
-    border-radius: 3px;
-    font-size: 1rem;
-    box-shadow: none;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     min-height: 2.4rem;
-    color: #1C1C1C;
+    color: #4a5568;
     position: relative; }
     .form-element [type=color]:disabled, .form-element [type=color].disabled,
     .form-element [type=date]:disabled,
@@ -207,7 +244,7 @@ h6 {
     .form-element textarea:disabled,
     .form-element textarea.disabled {
       background-color: white;
-      color: #363636; }
+      color: #5f6d86; }
     .form-element [type=color]:active, .form-element [type=color].active,
     .form-element [type=date]:active,
     .form-element [type=date].active,
@@ -237,7 +274,7 @@ h6 {
     .form-element [type=time].active,
     .form-element textarea:active,
     .form-element textarea.active {
-      color: #030303;
+      color: #353d4a;
       border-color: #e6e6e6; }
     .form-element [type=color]:focus,
     .form-element [type=date]:focus,
@@ -297,12 +334,12 @@ h6 {
     vertical-align: middle;
     width: 100%;
     max-width: 100%;
-    border-width: 1px;
+    border-width: 0;
     border-style: solid;
     border-color: #AAAAAA;
-    border-radius: 3px;
-    font-size: 1rem;
-    box-shadow: none;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     line-height: 1.3;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -365,26 +402,26 @@ h6 {
   vertical-align: middle;
   width: 100%;
   max-width: 100%;
-  border-width: 1px;
+  border-width: 0;
   border-style: solid;
   border-color: #AAAAAA;
-  border-radius: 3px;
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
-  box-shadow: none; }
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
   .fieldset legend {
     display: block;
     padding: 0 0.8rem 0 0.8rem;
-    font-size: 1.1rem;
-    color: #1C1C1C;
+    font-size: 0.9625rem;
+    color: #4a5568;
     font-weight: 900; }
 
 /* On the subject of buttons... */
 .btn {
-  font-family: "Inter", sans-serif;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
   font-style: normal;
-  font-weight: 900;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 0.875rem;
   line-height: 1.2rem;
   align-items: center;
   text-align: center;
@@ -392,12 +429,12 @@ h6 {
   color: #FFFFFF;
   padding: 0.8rem 0.8rem;
   margin: 0;
-  border-radius: 3px;
+  border-radius: 0.25rem;
   vertical-align: middle;
   cursor: pointer;
   background-color: #717171;
   border: none;
-  box-shadow: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   min-height: 2.4rem; }
   .btn:hover, .btn.hover {
     background: #8b8b8b;
@@ -416,45 +453,47 @@ h6 {
     border-color: #585858; }
 
 .btn-primary {
-  font-family: "Inter", sans-serif;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
   font-style: normal;
-  font-weight: 900;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 0.875rem;
   line-height: 1.2rem;
   align-items: center;
   text-align: center;
+  text-transform: uppercase;
+  width: 100%;
   letter-spacing: 0.1em;
   color: #FFFFFF;
   padding: 0.8rem 0.8rem;
   margin: 0;
-  border-radius: 3px;
+  border-radius: 0.25rem;
   vertical-align: middle;
   cursor: pointer;
-  background-color: #dc582a;
+  background-color: #1a202c;
   border: none;
-  box-shadow: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   min-height: 2.4rem; }
   .btn-primary:hover, .btn-primary.hover {
-    background: #e37a56;
+    background: #553c9a;
     transition: all 0.3s ease; }
   .btn-primary:disabled, .btn-primary.disabled {
-    background-color: #e37a56;
+    background-color: #553c9a;
     color: white;
-    border-color: #e37a56; }
+    border-color: #553c9a; }
     .btn-primary:disabled:active, .btn-primary.disabled:active {
-      background-color: #e37a56;
+      background-color: #553c9a;
       color: white;
-      border-color: #e37a56; }
+      border-color: #553c9a; }
   .btn-primary:active, .btn-primary.active {
-    background-color: #b5451e;
+    background-color: #43307a;
     color: #e6e6e6;
-    border-color: #b5451e; }
+    border-color: #43307a; }
 
 .btn-secondary {
-  font-family: "Inter", sans-serif;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.2rem;
   align-items: center;
   text-align: center;
@@ -462,12 +501,12 @@ h6 {
   color: #FFFFFF;
   padding: 0.8rem 0.8rem;
   margin: 0;
-  border-radius: 3px;
+  border-radius: 0.25rem;
   vertical-align: middle;
   cursor: pointer;
   background-color: #4d2a86;
   border: none;
-  box-shadow: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   min-height: 2.4rem; }
   .btn-secondary:hover, .btn-secondary.hover {
     background: #6336ad;
@@ -486,10 +525,10 @@ h6 {
     border-color: #371e5f; }
 
 .btn-tertiary {
-  font-family: "Inter", sans-serif;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.2rem;
   align-items: center;
   text-align: center;
@@ -497,12 +536,12 @@ h6 {
   color: #FFFFFF;
   padding: 0.8rem 0.8rem;
   margin: 0;
-  border-radius: 3px;
+  border-radius: 0.25rem;
   vertical-align: middle;
   cursor: pointer;
   background-color: #da1884;
   border: none;
-  box-shadow: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   min-height: 2.4rem; }
   .btn-tertiary:hover, .btn-tertiary.hover {
     background: #e93c9c;
@@ -521,10 +560,10 @@ h6 {
     border-color: #ac1368; }
 
 .btn-success {
-  font-family: "Inter", sans-serif;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.2rem;
   align-items: center;
   text-align: center;
@@ -532,12 +571,12 @@ h6 {
   color: #FFFFFF;
   padding: 0.8rem 0.8rem;
   margin: 0;
-  border-radius: 3px;
+  border-radius: 0.25rem;
   vertical-align: middle;
   cursor: pointer;
   background-color: #00b020;
   border: none;
-  box-shadow: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   min-height: 2.4rem; }
   .btn-success:hover, .btn-success.hover {
     background: #00e329;
@@ -556,10 +595,10 @@ h6 {
     border-color: #007d17; }
 
 .btn-danger {
-  font-family: "Inter", sans-serif;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.2rem;
   align-items: center;
   text-align: center;
@@ -567,12 +606,12 @@ h6 {
   color: #FFFFFF;
   padding: 0.8rem 0.8rem;
   margin: 0;
-  border-radius: 3px;
+  border-radius: 0.25rem;
   vertical-align: middle;
   cursor: pointer;
   background-color: #b00020;
   border: none;
-  box-shadow: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   min-height: 2.4rem; }
   .btn-danger:hover, .btn-danger.hover {
     background: #e30029;
@@ -591,12 +630,12 @@ h6 {
     border-color: #7d0017; }
 
 .btn-small {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   line-height: 0.96rem;
   padding: 0.4rem 0.8rem; }
 
 .btn-large {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   line-height: 1.44rem;
   padding: 1.2rem 1.6rem; }
 
@@ -676,7 +715,7 @@ h6 {
   background: linear-gradient(45deg, #dddddd 0, #dddddd 30%, #c0c0c0 50%, #dddddd 70%, #dddddd 100%);
   background-size: 400% 400%;
   animation: gradientBG 6s ease infinite;
-  border-radius: 3px;
+  border-radius: 0.25rem;
   display: block; }
 
 .skeleton__row {
@@ -694,14 +733,14 @@ h6 {
 .skeleton-label {
   box-sizing: border-box;
   width: 30%;
-  height: 1.1rem;
+  height: 0.9625rem;
   margin: 0 0 0.2rem 0;
   display: block; }
 
 .skeleton-hint {
   width: 60%;
   margin: 0 0 0.2rem 0.4rem;
-  height: 1rem;
+  height: 0.875rem;
   display: block; }
 
 .skeleton-input {
@@ -711,7 +750,7 @@ h6 {
   margin: 0;
   width: 100%;
   max-width: 100%;
-  font-size: 1rem;
+  font-size: 0.875rem;
   min-height: 2.4rem; }
 
 .skeleton-tall-input {
@@ -1082,7 +1121,7 @@ table {
   max-width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  font-family: "Inter", sans-serif; }
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
 
 /*  Sets table width to 100%.
  *  Adds bottom-margin. */
@@ -1179,14 +1218,14 @@ table {
   vertical-align: middle;
   width: 100%;
   max-width: 100%;
-  border-width: 1px;
+  border-width: 0;
   border-style: solid;
   border-color: #AAAAAA;
-  border-radius: 3px;
-  font-size: 1rem;
-  box-shadow: none;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   min-height: 2.4rem;
-  color: #1C1C1C; }
+  color: #4a5568; }
   .multiselect .multiselect:not(.readonly):hover {
     border-bottom-color: #4d2a86; }
   .multiselect .tokens {
@@ -1209,7 +1248,7 @@ table {
   .multiselect .token {
     align-items: center;
     background-color: #dddddd !important;
-    border-radius: 3px;
+    border-radius: 0.25rem;
     display: flex;
     margin: .25rem .5rem .25rem 0;
     max-height: 1.3rem;
@@ -1224,7 +1263,7 @@ table {
   .multiselect .token-remove, .multiselect .remove-all {
     align-items: center;
     background-color: #717171;
-    border-radius: 3px;
+    border-radius: 0.25rem;
     color: #AAAAAA;
     display: flex;
     justify-content: center;
@@ -1241,20 +1280,20 @@ table {
     min-width: 15rem; }
   .multiselect input {
     border: none;
-    font-size: 1rem;
+    font-size: 0.875rem;
     line-height: 1.2rem;
     margin: 0;
     outline: none;
     padding: 0;
     width: 100%; }
   .multiselect .dropdown-arrow path {
-    fill: #1C1C1C; }
+    fill: #4a5568; }
   .multiselect .multiselect:hover .dropdown-arrow path {
-    fill: #1C1C1C; }
+    fill: #4a5568; }
   .multiselect .icon-clear path {
     fill: white; }
   .multiselect .options {
-    box-shadow: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     left: 0;
     list-style: none;
     margin-block-end: 0;
@@ -1270,8 +1309,8 @@ table {
     cursor: pointer;
     padding: .5rem; }
   .multiselect li:last-child {
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px; }
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem; }
   .multiselect li:not(.selected):hover {
     background-color: #AAAAAA; }
   .multiselect li.selected {
@@ -1529,15 +1568,15 @@ table {
 
 .c-datepicker {
   position: relative;
-  font-family: "Inter", sans-serif; }
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
   .c-datepicker .box {
     animation: slide-in-blurred-top 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
     position: absolute;
     z-index: 999;
     top: 40px;
     left: 0px;
-    border: 1px solid #dc582a;
-    border-radius: 3px;
+    border: 0 solid #dc582a;
+    border-radius: 0.25rem;
     display: inline-block;
     background: #FFFFFF; }
   .c-datepicker .month-name {
@@ -1558,7 +1597,7 @@ table {
   padding: 6px;
   width: 370px;
   background-color: #FFFFFF;
-  font-family: "Inter", sans-serif; }
+  font-family: Montserrat, Arial, Helvetica, sans-serif; }
   .c-calendar .row {
     display: flex;
     margin: 2px 6px;
@@ -1570,7 +1609,7 @@ table {
     text-align: center;
     padding: 4px;
     margin: 1px;
-    color: #1C1C1C; }
+    color: #4a5568; }
   .c-calendar .selected {
     background: #00b020; }
   .c-calendar .highlight {
@@ -1588,4 +1627,4 @@ table {
   .c-calendar .selected.highlight:hover {
     background: #00e329;
     font-weight: 900;
-    color: #1C1C1C; }
+    color: #4a5568; }

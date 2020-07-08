@@ -2,6 +2,8 @@ import { Auth } from 'aws-amplify'
 
 export const state = () => ({
   isAuthenticated: false,
+  isAdmin: false,
+  userGroups: [],
   emailVerified: true,
   forcePasswordChange: false,
   user: null
@@ -10,6 +12,7 @@ export const state = () => ({
 export const mutations = {
   set(state, user) {
     state.isAuthenticated = !!user
+    state.userGroups = user && user.groups ? user.groups : []
     state.forcePasswordChange = user && user.challengeName == 'NEW_PASSWORD_REQUIRED'
     state.emailVerified = user && user.attributes.email_verified == "true"
     state.user = user
@@ -26,6 +29,12 @@ export const actions = {
     try {
       const user = await Auth.currentAuthenticatedUser()
       user.attributes.email_verified = await dispatch('updateAttributes', { user });
+
+      const userGroups = (user.signInUserSession.accessToken.payload["cognito:groups"]) ? user.signInUserSession.accessToken.payload["cognito:groups"] : [];
+      user.groups = [];
+      for (var group in userGroups) {
+        user.groups[userGroups[group]] = true;
+      }
       commit('set', user)
 
       return user
