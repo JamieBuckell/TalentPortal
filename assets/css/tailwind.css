@@ -21,12 +21,36 @@ h1 {
     @apply outline-none
 }
 
-.btn-gray {
+.btn-primary {
+    @apply bg-purple-800
+}
+
+.btn-secondary {
+    @apply bg-teal-500
+}
+
+.btn-tertiary {
     @apply bg-gray-800
 }
 
-.btn-purple {
-    @apply bg-purple-800
+.btn-positive {
+    @apply bg-green-500
+}
+
+.btn-danger {
+    @apply bg-red-700
+}
+
+.btn-black {
+    @apply bg-black
+}
+
+.input-style {
+    @apply px-4 py-2 text-gray-700 bg-white rounded text-sm shadow;
+}
+
+.input-style:focus {
+    @apply outline-none;
 }
 
 .content-container {
@@ -40,6 +64,67 @@ h1 {
 }
 .nav-link:focus {
     @apply outline-none
+}
+
+.job-listing:first-of-type {
+    @apply rounded-t-lg;
+}
+
+.job-listing {
+    @apply bg-white w-full border border-b-0 border-gray-400 p-4;
+
+    border-left:4px solid rgb(81, 60, 127);
+}
+
+.job-listing:last-of-type {
+    @apply rounded-b-lg border-b;
+}
+
+.job-listing:hover {
+    @apply bg-gray-200;
+
+    border-left:4px solid rgb(201, 67, 126);
+}
+
+.vacancy-detail,
+.vacancy-editor .ql-editor {
+    @apply text-xs;
+}
+
+.vacancy-detail p,
+.vacancy-editor .ql-editor p {
+    @apply pb-5;
+}
+
+.vacancy-detail-heading,
+.vacancy-detail h1,
+.vacancy-editor .ql-editor h1,
+.vacancy-detail h2,
+.vacancy-editor .ql-editor h2,
+.vacancy-detail h3, 
+.vacancy-editor .ql-editor h3,
+.vacancy-detail h4, 
+.vacancy-editor .ql-editor h4,
+.vacancy-detail h5,
+.vacancy-editor .ql-editor h5 {
+    @apply text-purple-700 font-semibold text-base mt-5 mb-3;
+}
+
+.vacancy-detail ul,
+.vacancy-editor .ql-editor ul {
+    @apply relative list-none;
+}
+
+.vacancy-detail ul li,
+.vacancy-editor .ql-editor ul li {
+    @apply relative mt-0 mr-0 mb-4 ml-5 list-none;
+}
+
+.vacancy-detail ul li::before,
+.vacancy-editor .ql-editor ul li::before {
+    @apply inline-block float-left bg-purple-700 rounded-sm mt-2 mr-0 mb-0 -ml-5 w-2 h-2;
+
+    content: "";
 }
 
 @screen sm {
@@ -61,22 +146,6 @@ h1 {
     .nav-link:hover {
         @apply shadow-md
     }
-}
-
-.profile-image {
-    width: 100%;
-    height: auto;
-    min-height: 250px;
-    background-color: #FFF;
-    background-size: contain;
-    border-top-left-radius: 0.5em;
-    border-top-right-radius: 0.5em;
-    border-bottom-left-radius: 0;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-@screen lg {
     .profile-image {
 
         border-top-right-radius: 0;

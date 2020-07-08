@@ -9,6 +9,22 @@ class AuthService {
     return this.$store.state.auth.isAuthenticated
   }
 
+  get isAdmin() {
+    return this.isAuthenticated && this.$store.state.auth.userGroups['SuperAdmin']
+  }
+
+  get isTalentAdmin() {
+    return this.isAuthenticated && (this.isAdmin || this.$store.state.auth.userGroups['TalentAdmin'])
+  }
+
+  get isVacanciesAdmin() {
+    return this.isAuthenticated && (this.isAdmin || this.$store.state.auth.userGroups['VacanciesAdmin'])
+  }
+
+  get canViewTalent() {
+    return this.isAuthenticated && (this.isTalentAdmin || this.$store.state.auth.userGroups['ViewTalent'])
+  }
+
   get emailVerified() {
     return this.$store.state.auth.emailVerified
   }

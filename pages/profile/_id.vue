@@ -57,7 +57,7 @@
                     <!--
                       <a
                         :href="download_link"
-                        class="btn btn-purple flex-1 lg:flex-none"
+                        class="btn btn-primary flex-1 lg:flex-none"
                         type="button"
                         style="transition: all 0.15s ease 0s;"
                       >
@@ -65,7 +65,7 @@
                       </a>
                     -->
                     <a
-                      class="btn btn-gray flex-1 lg:flex-none"
+                      class="btn btn-tertiary flex-1 lg:flex-none"
                       href="/search"
                       style="transition: all 0.15s ease 0s;"
                     >
@@ -241,6 +241,10 @@ export default Vue.extend({
       }
   },
   mounted() {
+    if (!this.$auth.canViewTalent) {
+      throw new Error("This page could not be found")
+    }
+
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken

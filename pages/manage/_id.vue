@@ -54,15 +54,15 @@
                 <div class="w-full z-40">
                   <div class="flex lg:whitespace-no-wrap lg:float-right">
                     <button
-                      class="btn btn-purple flex-1 lg:flex-none"
-                      @click="showModal(email_address)"
+                      class="btn btn-primary flex-1 lg:flex-none"
+                      @click="showModal('email')"
                       style="transition: all 0.15s ease 0s;"
                     >
                       <i class="fas fa-envelope mr-2 text-lg text-gray-500"></i>
                       Change Email
                     </button>
                     <a
-                      class="btn btn-gray flex-1 lg:flex-none"
+                      class="btn btn-tertiary flex-1 lg:flex-none"
                       href="/"
                       style="transition: all 0.15s ease 0s;"
                     >
@@ -206,6 +206,21 @@
                         </span>
                       </span>
                     </div>
+
+                    <!--
+                    <div class="w-full px-4 pt-6">
+
+                      <button
+                        class="btn btn-danger flex-1 lg:flex-none"
+                        @click="showModal('delete')"
+                        style="transition: all 0.15s ease 0s;"
+                      >
+                        <i class="fas fa-user-slash mr-2 text-lg text-white"></i>
+                        Delete Account
+                      </button>
+                    </div>
+                    -->
+
                   </div>
                 </div>
               </div>
@@ -245,17 +260,18 @@
                         <span v-html="summary"></span>
                         <span v-if="!summary" class="text-gray-500">A breif summary of your main skills and expertise</span>
                       </span>
-                      <textarea
-                        ref="summary"
-                        v-model="summary" 
-                        v-show="showField('summary')"
-                        type="text" 
-                        rows="5"
-                        placeholder="A breif summary of your main skills and expertise"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                        @focus="focusField('summary')" 
-                        @blur="blurField"
-                      ></textarea>
+                      
+                      <client-only>
+                        <quill-editor
+                          ref="summary"
+                          v-model="summary"
+                          v-show="showField('summary')"
+                          :options="editorOption"
+                          @blur="blurField"
+                          @focus="focusField('summary')"
+                          class="bg-white x-3 placeholder-gray-400 text-gray-700 rounded text-sm shadow focus:outline-none focus:shadow-outline w-8/12 ml-auto mr-auto text-center" 
+                        />                  
+                      </client-only>
                     </p>
                   </div>
 
@@ -286,17 +302,18 @@
                         <span v-html="detail"></span>
                         <span v-if="!detail" class="text-gray-500">The full details of your achievements, skills and expertise</span>
                       </span>
-                      <textarea
-                        ref="detail"
-                        v-model="detail" 
-                        v-show="showField('detail')"
-                        type="text" 
-                        rows="5"
-                        placeholder="The full details of your skills and expertise"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                        @focus="focusField('detail')" 
-                        @blur="blurField"
-                      ></textarea>
+                      
+                      <client-only>
+                        <quill-editor
+                          ref="detail"
+                          v-model="detail"
+                          v-show="showField('detail')"
+                          :options="editorOption"
+                          @blur="blurField"
+                          @focus="focusField('detail')"
+                          class="bg-white x-3 placeholder-gray-400 text-gray-700 rounded text-sm shadow focus:outline-none focus:shadow-outline w-8/12 ml-auto mr-auto text-center" 
+                        />                  
+                      </client-only>
                     </p>
                   </div>
 
@@ -327,17 +344,18 @@
                         <span v-html="experience"></span>
                         <span v-if="!experience" class="text-gray-500">All your relevant previous jobs and roles</span>
                       </span>
-                      <textarea
-                        ref="experience"
-                        v-model="experience" 
-                        v-show="showField('experience')"
-                        type="text" 
-                        rows="5"
-                        placeholder="All your relevant previous jobs and roles"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                        @focus="focusField('experience')" 
-                        @blur="blurField"
-                      ></textarea>
+                      
+                      <client-only>
+                        <quill-editor
+                          ref="experience"
+                          v-model="experience"
+                          v-show="showField('experience')"
+                          :options="editorOption"
+                          @blur="blurField"
+                          @focus="focusField('experience')"
+                          class="bg-white x-3 placeholder-gray-400 text-gray-700 rounded text-sm shadow focus:outline-none focus:shadow-outline w-8/12 ml-auto mr-auto text-center" 
+                        />                  
+                      </client-only>
                     </p>
                   </div>
 
@@ -368,17 +386,18 @@
                         <span v-html="qualifications"></span>
                         <span v-if="!qualifications" class="text-gray-500">Any qualifications you have or training you've attended.</span>
                       </span>
-                      <textarea
-                        ref="qualifications"
-                        v-model="qualifications" 
-                        v-show="showField('qualifications')"
-                        type="text" 
-                        rows="5"
-                        placeholder="Any qualifications you have"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                        @focus="focusField('qualifications')" 
-                        @blur="blurField"
-                      ></textarea>
+                      
+                      <client-only>
+                        <quill-editor
+                          ref="qualifications"
+                          v-model="qualifications"
+                          v-show="showField('qualifications')"
+                          :options="editorOption"
+                          @blur="blurField"
+                          @focus="focusField('qualifications')"
+                          class="bg-white x-3 placeholder-gray-400 text-gray-700 rounded text-sm shadow focus:outline-none focus:shadow-outline w-8/12 ml-auto mr-auto text-center" 
+                        />                  
+                      </client-only>
                     </p>
                   </div>
 
@@ -409,17 +428,18 @@
                         <span v-html="attributes"></span>
                         <span v-if="!attributes" class="text-gray-500">Any examples of team work, building relationships etc</span>
                       </span>
-                      <textarea
-                        ref="attributes"
-                        v-model="attributes" 
-                        v-show="showField('attributes')"
-                        type="text" 
-                        rows="5"
-                        placeholder="Any examples of team work, building relationships etc"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                        @focus="focusField('attributes')" 
-                        @blur="blurField"
-                      ></textarea>
+                      
+                      <client-only>
+                        <quill-editor
+                          ref="attributes"
+                          v-model="attributes"
+                          v-show="showField('attributes')"
+                          :options="editorOption"
+                          @blur="blurField"
+                          @focus="focusField('attributes')"
+                          class="bg-white x-3 placeholder-gray-400 text-gray-700 rounded text-sm shadow focus:outline-none focus:shadow-outline w-8/12 ml-auto mr-auto text-center" 
+                        />                  
+                      </client-only>
                     </p>
                   </div>
 
@@ -450,17 +470,18 @@
                         <span v-html="websites"></span>
                         <span v-if="!websites" class="text-gray-500">Any websites showcasing your skills and expertise</span>
                       </span>
-                      <textarea
-                        ref="websites"
-                        v-model="websites" 
-                        v-show="showField('websites')"
-                        type="text" 
-                        rows="5"
-                        placeholder="Any websites showcasing your skills and expertise"
-                        class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-6/12 text-center" 
-                        @focus="focusField('websites')" 
-                        @blur="blurField"
-                      ></textarea>
+                      
+                      <client-only>
+                        <quill-editor
+                          ref="websites"
+                          v-model="websites"
+                          v-show="showField('websites')"
+                          :options="editorOption"
+                          @blur="blurField"
+                          @focus="focusField('websites')"
+                          class="bg-white x-3 placeholder-gray-400 text-gray-700 rounded text-sm shadow focus:outline-none focus:shadow-outline w-8/12 ml-auto mr-auto text-center" 
+                        />                  
+                      </client-only>
                     </p>
                   </div>
                 </div>
@@ -481,7 +502,7 @@
       @close="closeModal()"
       @action="actionModal"
        >
-       <template v-slot:inputs>
+       <template v-if="this.modal.type == 'email'" v-slot:inputs>
          <label class="mt-3 pt-3 font-bold placeholder-gray-600 w-full text-sm">
            Email
          </label>
@@ -534,11 +555,12 @@ export default Vue.extend({
   data() {
       return {
         modal: {
-          title: 'Email Address Change',
+          title: '',
           content: '',
-          action_text: 'Change',
-          close_text: 'Cancel',
-          detail: ''
+          action_text: '',
+          close_text: '',
+          detail: '',
+          type: ''
         },
         new_email: {
           email: '',
@@ -546,6 +568,7 @@ export default Vue.extend({
           error: ''
         },
         isModalVisible: false,
+        isConfirmModalVisible: false,
         email_address: '',
         talent_id: '0',
         download_link: '/download/',
@@ -578,40 +601,89 @@ export default Vue.extend({
           title : 'Error', 
           message : 'Your change has been rejected.',
           detail : ''
+        },
+        editorOption: {
+          // Some Quill options...
+          theme: 'snow',
+          modules: {
+            toolbar: [
+              [{ 'size': ['small', false, 'large', 'huge'] }],
+              [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+              /*[{ 'font': [] }],*/
+              /*[{ 'color': [] }, { 'background': [] }],*/
+              [{ 'align': [] }],
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+              [{ 'header': 1 }, { 'header': 2 }],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+              /*[{ 'script': 'sub' }, { 'script': 'super' }],*/
+              [{ 'indent': '-1' }, { 'indent': '+1' }],
+              /*[{ 'direction': 'rtl' }],*/
+              
+              ['link'/*, 'image', 'video'*/],
+              ['clean']
+            ]
+          }
         }
       }
   },
   methods: {
-    async showModal(data) {
+    showModal(type) {
+      if (type == 'email') {
+        this.modal.title = 'Email Address Change';
+        this.modal.content = '';
+        this.modal.action_text = 'Change';
+        this.modal.close_text = 'Cancel';
+        this.modal.detail = '';
+        this.modal.type = 'email';
+      } else if (type == 'delete') {
+        this.modal.title = 'Delete Account Confirmation';
+        this.modal.content = "Are you sure you want to delete your acount?<br />This action cannot be undone<br />";
+        this.modal.action_text = "Yes, i'm sure";
+        this.modal.close_text = 'Cancel';
+        this.modal.detail = "";
+        this.modal.type = 'delete';
+      }
+
       this.isModalVisible = true;
     },
     closeModal() {
       this.isModalVisible = false;
     },
     async actionModal(e) {
-      if (this.new_email.email != this.new_email.email_confirm) {
-        this.new_email.error = 'Emails do not match, please check and try again.';
-        return false;
-      } else {
-        let changeEmail = await this.$store.dispatch({
-          type: 'auth/changeEmail',
-          email: this.new_email.email
-        })
-
-        if (typeof changeEmail.message !== 'undefined') {
-          this.new_email.error = changeEmail.message;
+      if (this.modal.type == 'email') {
+        if (this.new_email.email != this.new_email.email_confirm) {
+          this.new_email.error = 'Emails do not match, please check and try again.';
           return false;
         } else {
-          await this.saveData('email', this.new_email.email);
+          let changeEmail = await this.$store.dispatch({
+            type: 'auth/changeEmail',
+            email: this.new_email.email
+          })
 
-          this.email_address = this.new_email.email
-          this.isModalVisible = false
-          this.new_email.email = ''
-          this.new_email.email_confirm = ''
-          this.$parent.$parent.verifyEmailModal();
+          if (typeof changeEmail.message !== 'undefined') {
+            this.new_email.error = changeEmail.message;
+            return false;
+          } else {
+            await this.saveData('email', this.new_email.email);
+
+            this.email_address = this.new_email.email
+            this.isModalVisible = false
+            this.new_email.email = ''
+            this.new_email.email_confirm = ''
+            this.$parent.$parent.verifyEmailModal();
+          }
         }
+
+        return true;
+      } else if (this.modal.type == 'delete') {
+        this.isModalVisible = false;
+        this.$store.dispatch('auth/logout');
+
+        return true;
       }
-      return true;
+
+      return false;
     },
     fileChoice () {
     	this.$refs.fileChoice.click();
