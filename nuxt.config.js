@@ -36,7 +36,6 @@ module.exports = {
   */
   css: [
     'assets/css/talent.css',
-    'quill/dist/quill.core.css',
     'quill/dist/quill.snow.css',
   ],
   /*
@@ -85,5 +84,6 @@ module.exports = {
     extend (config, ctx) {
     },
     vendor: ['vuetable-2']
-  }
+  },
+  purgeCSS: { enabled: false }
 }
