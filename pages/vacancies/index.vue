@@ -67,7 +67,20 @@
         </div>
         <div class="py-8 flex flex-wrap">
           <div class="relative w-full pr-6">
-            <a v-for="(vacancy, i) in data" :key="i" :href="'/vacancies/' + vacancy.id" class="job-listing flex items-center" ref="vacancies" :data-vacancy-id="vacancy.id">
+            <div v-show="!data.length" class="job-listing flex items-center">
+              <div class="w-24">
+                <img src="https://sciences.ucf.edu/psychology/wp-content/uploads/sites/63/2019/09/No-Image-Available.png" 
+                     alt="No Vacancies"
+                     class="rounded-md" />                     
+              </div>
+              <div class="relative w-full flex flex-wrap ml-6">
+                <h4 class="relative w-full flex flex-wrap text-xl text-gray-700">
+                  No Currently Known Vacancies
+                </h4>
+              </div>
+            </div>
+            
+            <a v-show="data.length" v-for="(vacancy, i) in data" :key="i" :href="'/vacancies/' + vacancy.id" class="job-listing flex items-center" ref="vacancies" :data-vacancy-id="vacancy.id">
               <div class="w-24">
                 <img v-if="vacancy.logo" :src="vacancy.logo" 
                      :alt="vacancy.organisation + ': ' + vacancy.job_title"
@@ -152,13 +165,6 @@
 <script lang="ts">
 import Vue from "vue";
 
-import axios from "axios";
-
-const headers = {
-  'Content-Type': 'application/json',
-  'Authorization': ''
-}
-
 export default Vue.extend({
   name: "vacancies-list",
   middleware: "auth",
@@ -173,84 +179,44 @@ export default Vue.extend({
   },
 
   mounted() {
-    headers['Authorization'] = this.$auth.user.signInUserSession.idToken.jwtToken;
-
-    var data = { "viewType" : 'basic' };
-    axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/vacancies", 
-      data,
-      { headers: headers }
-    )
-    .then(response => {
-      this.data = response.data.result;
-    })
-    .catch(error => {
-      console.log(error)
-    });
+    this.getVacancies();
   },
 
   methods: {
+    async getVacancies() {
+      var data = { "viewType" : 'basic' };
+      var vacancyData = await this.$parent.$parent.apiCall('vacancies', data)
+      this.data = vacancyData;
+    },
     editVacancy(vacancy) {
       this.$router.push('/vacancies/manage/'+vacancy.id+'/');
     },
     deleteVacancy(vacancy) {
-        this.$parent.$parent.modal.title = 'Remove Vacancy';
-        this.$parent.$parent.modal.content = "Are you sure you want to remove the Vacancy:<br /><strong>" + vacancy.organisation + '</strong> - <strong>' + vacancy.job_title + '</strong>?';
-        this.$parent.$parent.modal.action_text = "Yes, i'm sure";
-        this.$parent.$parent.modal.action_data = vacancy;
-        this.$parent.$parent.modal.action_method = this.doVacancyDelete;
-        this.$parent.$parent.modal.secondary_action_text = "";
-        this.$parent.$parent.modal.close_text = 'Cancel';
-        this.$parent.$parent.modal.detail = "";
-        this.$parent.$parent.modal.type = 'delete';
+      this.$parent.$parent.modal.title = 'Remove Vacancy';
+      this.$parent.$parent.modal.content = "Are you sure you want to remove the Vacancy:<br /><strong>" + vacancy.organisation + '</strong> - <strong>' + vacancy.job_title + '</strong>?';
+      this.$parent.$parent.modal.action_text = "Yes, i'm sure";
+      this.$parent.$parent.modal.action_data = vacancy;
+      this.$parent.$parent.modal.action_method = this.doVacancyDelete;
+      this.$parent.$parent.modal.secondary_action_text = "";
+      this.$parent.$parent.modal.close_text = 'Cancel';
+      this.$parent.$parent.modal.detail = "";
+      this.$parent.$parent.modal.type = 'delete';
 
-        this.$parent.$parent.isModalVisible = true;
+      this.$parent.$parent.isModalVisible = true;
     },
-    doVacancyDelete(e, vacancy) {
+    async doVacancyDelete(e, vacancy) {
       this.$parent.$parent.closeModal();
-      this.$parent.$parent.showOverlay();
       
-      let deleteData = {vacancy_id: vacancy.id, status: 0};
-      axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/vacancies/update", 
-        deleteData,
-        {
-          headers: headers
-        }
-      )
-      .then(response => { 
+      var data = {vacancy_id: vacancy.id, status: 0};
+      var updateSuccess = await this.$parent.$parent.apiCall('vacancies/update', data)
+
+      if (updateSuccess == true) {
         var updatedData = {}
         for (var key in this.data) {
-          if (this.data[key].id != vacancy.id) {
-            updatedData[key] = this.data[key]
+          if (this.data[key].id == vacancy.id) {
+            this.data.splice(key,1);
           }
         }
-        this.data = updatedData;
-
-        this.$parent.$parent.hideOverlay();
-      })
-      .catch(error => {
-        console.log(error)
-        this.$parent.$parent.hideOverlay();
-      });
-    },
-    dataManager(sortOrder) {
-      if (this.data.length < 1) return;
-
-      let local = this.data;
-
-      // sortOrder can be empty, so we have to check for that as well
-      if (sortOrder.length > 0) {
-        console.log("orderBy:", sortOrder[0].sortField, sortOrder[0].direction);
-      }
-
-      return {
-        data: local
-      };
-    },
-    onActionClicked(action, data) {
-      switch (action) {
-        case 'view-item':
-          this.$router.push('/profile/'+data.rowData.id+'/')
-          break;
       }
     }
   }
