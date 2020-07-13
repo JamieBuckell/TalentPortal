@@ -144,8 +144,6 @@ import Vue from 'vue'
 import OverviewComponent from "~/components/Vacancies/Overview.vue";
 import "leighton-form";
 
-import axios from "axios";
-
 const vacancyData: any = {
   vacancy_id: '',
   job_title: '',
@@ -347,40 +345,27 @@ export default Vue.extend({
       this.$refs[formId].fields = this.fields;
       this.$refs[formId].data = this.vacancy_data;
     },
-    getVacancyData(vacancy_id) {
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
-      }
+    async getVacancyData(vacancy_id) {
       var data = { 
         "viewType" : 'edit',
         "id": vacancy_id
       };
-      axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/vacancies", 
-        data,
-        {
-          headers: headers
-        }
-      )
-      .then(response => { 
-        if (typeof response.data.result == 'undefined' || response.data.result.length == 0) {
-          this.$router.push('/vacancies');
-        } else {
-          this.vacancy_data.vacancy_id = response.data.result.id;
+      var vacancyData = await this.$parent.$parent.apiCall('vacancies', data)
+      
+      if (vacancyData.length == 0) {
+        this.$router.push('/vacancies');
+      } else {
+        this.vacancy_data.vacancy_id = vacancyData.id;
 
-          for (let dataKey in response.data.result) {
-            if (typeof this.vacancy_data[dataKey] != 'undefined' && response.data.result[dataKey] != '') {
-              this.vacancy_data[dataKey] = response.data.result[dataKey];
-            }
+        for (let dataKey in vacancyData) {
+          if (typeof this.vacancy_data[dataKey] != 'undefined' && vacancyData[dataKey] != '') {
+            this.vacancy_data[dataKey] = vacancyData[dataKey];
           }
-          this.page_title = this.vacancy_data.job_title;
-
-          this.refreshForm("new-vacancy");
         }
-      })
-      .catch(error => {
-        console.log('error jamie', error)
-      });
+        this.page_title = this.vacancy_data.job_title;
+
+        this.refreshForm("new-vacancy");
+      }
     },
     validateSubmission()
     {
@@ -427,56 +412,24 @@ export default Vue.extend({
         }
       }
     },
-    createVacancy()
+    async createVacancy()
     {
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
-      }
       var submit_data = this.vacancy_data;
       if (submit_data.internal_contact.id) {
         submit_data.internal_contact = submit_data.internal_contact.id
       } else {
         delete submit_data.internal_contact
       }
-      this.$parent.$parent.showOverlay();
-      axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/vacancies/create", 
-        this.vacancy_data,
-        {
-          headers: headers
-        }
-      )
-      .then(response => { 
-        this.$parent.$parent.hideOverlay();
+
+      var successResponse = await this.$parent.$parent.apiCall('vacancies/create', this.vacancy_data)
+
+      if (successResponse) {
         this.$router.push('/vacancies')
-      })
-      .catch(error => {
-        console.log('error', error)
-        this.$parent.$parent.hideOverlay();
-      });
-    },
-    updateVacancy()
-    {
-      /* */
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
       }
-      this.$parent.$parent.showOverlay();
-      axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/vacancies/update", 
-        this.vacancy_data,
-        {
-          headers: headers
-        }
-      )
-      .then(response => { 
-        this.$parent.$parent.hideOverlay();
-      })
-      .catch(error => {
-        console.log('jamie', error)
-        this.$parent.$parent.hideOverlay();
-      });
-      /* */
+    },
+    async updateVacancy()
+    {
+      var successResponse = await this.$parent.$parent.apiCall('vacancies/update', this.vacancy_data)
     }
   },
   filters: {

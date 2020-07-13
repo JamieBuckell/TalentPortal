@@ -108,8 +108,6 @@
 import Vue from 'vue'
 import OverviewComponent from "~/components/Vacancies/Overview.vue";
 
-import axios from "axios";
-
 export default Vue.extend({
   name: "vacancies-view",
   middleware: 'auth',
@@ -136,42 +134,35 @@ export default Vue.extend({
         },
       }
   },
-  mounted() {
-    const userGroups = (this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"]) ? this.$auth.user.signInUserSession.accessToken.payload["cognito:groups"] : [];
-    if (userGroups.indexOf("SuperAdmin") != -1 || userGroups.indexOf("VacanciesAdmin") != -1) {
-      this.isAdmin = true;
-    }
+  methods: {
+    async getVacancyData(vacancy_id) {
+      var data = { "viewType" : 'individual', "id":  vacancy_id};
+      var vacancyData = await this.$parent.$parent.apiCall('vacancies', data)
+      
+      console.log(vacancyData.length, vacancyData);
 
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
-    }
-    var data = { "viewType" : 'individual' };
-    if (typeof this.$route.params.id != 'undefined') {
-      data['id'] = this.$route.params.id
-    }
-    axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/vacancies", 
-      data,
-      {
-        headers: headers
-      }
-    )
-    .then(response => { 
-      if (typeof response.data.result == 'undefined' || response.data.result.length == 0) {
+      if (vacancyData.length == 0) {
         this.$router.push('/vacancies');
       } else {
-        this.vacancy_data.vacancy_id = response.data.result.id;
+        this.vacancy_data.vacancy_id = vacancyData.id;
 
-        for (let dataKey in response.data.result) {
-          if (typeof this.vacancy_data[dataKey] != 'undefined' && response.data.result[dataKey] != '') {
-            this.vacancy_data[dataKey] = response.data.result[dataKey];
+        for (let dataKey in vacancyData) {
+          if (typeof this.vacancy_data[dataKey] != 'undefined' && vacancyData[dataKey] != '') {
+            this.vacancy_data[dataKey] = vacancyData[dataKey];
           }
         }
       }
-    })
-    .catch(error => {
-      console.log(error)
-    });
+    }
+  },
+  mounted() {
+    if (
+      !this.$auth.isVacanciesAdmin || 
+      !this.$route.params.id
+    ) {
+      this.$router.push('/vacancies')
+    } else {
+      this.getVacancyData(this.$route.params.id)
+    }
   }
 })
 

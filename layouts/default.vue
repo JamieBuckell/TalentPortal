@@ -24,7 +24,7 @@
             <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
               <div class="rounded-md shadow-sm">
                 <button
-                  class="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-700 hover:bg-blue-8 00 focus:outline-none focus:underline"
+                  class="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:underline"
                   @click="verifyEmailModal()"
                   style="transition: all 0.15s ease 0s;"
                 >
@@ -79,11 +79,43 @@
         <i class="fas fa-circle-notch fa-spin fa-5x"></i>
       </span>
     </div>
+    <div v-if="hasErrors">
+      <div class="transition transform fixed z-50 top-0 mt-6 inset-x-0 pb-2 sm:pb-5">
+        <div v-for="error in allErrors" v-bind:key="error" class="max-w-screen-xl mx-auto pt-2 px-2 sm:px-4 block">
+          <div v-if="error.show" class="p-2 rounded-lg bg-red-500 shadow-lg sm:p-3">
+            <div class="flex items-center justify-between flex-wrap">
+              <div class="w-0 flex-1 flex items-center">
+                <i class="fas fa-info mr-2 text-lg text-white"></i>
+                <p class="ml-3 font-medium text-white truncate">
+                  <span class="lg:hidden">
+                    {{ error.message }}
+                  </span>
+                  <span class="hidden lg:inline text-gray-400">
+                    <strong class="text-white font-semibold mr-1">{{ error.message }}</strong>
+                  </span>
+                </p>
+              </div>
+              <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+                <a
+                  class="flex items-center justify-center px-2 py-2 text-sm font-medium text-white cursor-pointer"
+                  @click="error.show = false"
+                  style="transition: all 0.15s ease 0s;"
+                >
+                  <i class="fas fa-times text-lg text-whites"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+
+import axios from "axios";
 import NavbarComponent from "~/components/Navbar.vue";
 import FooterComponent from "~/components/Footer.vue";
 import ModalComponent from "~/components/Modal.vue";
@@ -99,6 +131,8 @@ export default Vue.extend({
   data() {
     return {
       showVerificationCode: false,
+      hasErrors: false,
+      allErrors: [],
       modal: {
         title: 'Email Address Verification',
         content: '',
@@ -119,6 +153,43 @@ export default Vue.extend({
   },
 
   methods: {
+
+    async apiCall(method, data) {
+      this.showOverlay();
+
+      var returnData = {}
+
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': this.$auth.user.signInUserSession.idToken.jwtToken
+      }
+      
+      await axios.post("https://ek6z7oe5pk.execute-api.eu-west-2.amazonaws.com/prod/"+method, 
+        data,
+        { headers: headers }
+      )
+      .then(response => {
+
+        if (typeof response.data.error != 'undefined') {
+          this.hasErrors = true;
+          this.allErrors.push({message: response.data.error, show: true});
+        }
+
+        this.hideOverlay();
+
+        returnData = response.data.result;
+      })
+      .catch(error => {
+        if (typeof error.message != 'undefined') {
+          this.hasErrors = true;
+          this.allErrors.push({message: error.message, show: true});
+        }
+        console.log(error)
+        this.hideOverlay();
+      });
+
+      return returnData;
+    },
     verifyEmailModal() {
       this.isModalVisible = true;
       this.showVerificationCode = true;
