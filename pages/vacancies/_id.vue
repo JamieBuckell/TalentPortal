@@ -156,7 +156,6 @@ export default Vue.extend({
   },
   mounted() {
     if (
-      !this.$auth.isVacanciesAdmin || 
       !this.$route.params.id
     ) {
       this.$router.push('/vacancies')
