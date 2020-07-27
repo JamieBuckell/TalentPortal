@@ -14,7 +14,8 @@ export const mutations = {
     state.isAuthenticated = !!user
     state.userGroups = user && user.groups ? user.groups : []
     state.forcePasswordChange = user && user.challengeName == 'NEW_PASSWORD_REQUIRED'
-    state.emailVerified = user && user.attributes.email_verified == "true"
+    //Don't show if we're required to change our password...
+    state.emailVerified = state.forcePasswordChange || (user && user.attributes && user.attributes.email_verified == "true")
     state.user = user
   },
   setEmailVerification(state, verified) {
@@ -116,8 +117,9 @@ export const actions = {
     const user = await Auth.signIn(email, password)
 
     commit('set', user)
-    user.attributes.email_verified = await dispatch('updateAttributes', { user });
-
+    if (!user.challengeName || user.challengeName != 'NEW_PASSWORD_REQUIRED') {
+      user.attributes.email_verified = await dispatch('updateAttributes', { user });
+    }
     return user
   },
 
